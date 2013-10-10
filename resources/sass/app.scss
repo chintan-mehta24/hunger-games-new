@@ -1,0 +1,637 @@
+$include-toolbar-uis: false;
+@import 'sencha-touch/default';
+
+$form-bg-color: transparent;
+$page-bg-color: transparent;
+$form-label-background-color: transparent;
+$form-field-bg-color: transparent;
+$form-dark: white;
+$form-field-height: 2em;
+
+@import 'sencha-touch/default/all';
+html,  body{
+	font-family:"myriad Pro";
+}
+
+.x-chart-watermark{
+	display:none;
+	visibility:hidden;
+}
+.x-button.x-button-main-ui-button{
+	border:0;
+	min-width: 12em;
+	width: 50%;
+	margin: auto;
+	@include border-radius(0);
+	background-color: transparent;
+	background-image: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.97)), color-stop(15%,rgba(255,255,255,0.55)), color-stop(100%,rgba(95,95,95,0))),url('../images/button.png');
+	background-image: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,0.97) 0%,rgba(255,255,255,0.55) 15%,rgba(95,95,95,0) 100%),url('../images/button.png');
+	background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.97) 0%,rgba(255,255,255,0.55) 15%,rgba(95,95,95,0) 100%),url('../images/button.png');
+	background-size: cover;
+	background-position: center;
+	height:3em;
+	@include box-shadow(0 0 1em black inset);
+	.x-button-label{
+		color:#3F3F3F;
+		text-transform: uppercase;
+	}
+	&.x-button-pressing, .x-button-pressed{
+		@include box-shadow(0 0 1em #E3701E inset);
+		.x-button-label{
+			color:#E3701E;
+		}
+	}
+}
+
+
+.blackBgFormPanelCls{
+	background-color: rgba(black,0.56);
+	.x-form-inner.x-scroll-scroller{
+		padding: 1em;
+	}
+	.welcomeMsgCls{
+		text-align: center;
+		line-height: 1;
+		color: white;
+		font-weight: bold;
+	}
+	.formExtraLableCls{
+		color: white;
+		padding: 0.5em 0;
+	}
+	.x-form-label{
+		padding-left:0;
+		padding-right:0;
+	}
+	.x-field-text , .x-field-select, .x-field-textarea{
+		.x-form-label{
+			text-shadow: none;
+		}
+		.x-component-outer{
+			background: white;
+			border: 2px solid #EE7223;
+			.x-input-el{
+				background: none;
+			}
+		}
+	} 
+	.x-field-select .x-component-outer:after{
+		background-color: #EE7223;
+	}
+	.x-field-radio{
+		.x-field-mask{
+			&:before{
+				@include border-radius(0);
+				border: 2px solid #EE7223;
+				background-color: white;
+			}
+			&:after{
+				@include border-radius(0);
+				background-color: white;
+			}
+		}
+		.x-input-el:checked+.x-field-mask::after{
+			background-color: #E3701E;
+		}
+	}
+	.x-field-checkbox {
+/* 		.x-field-mask::after{
+			color: white;
+		}
+		.x-input-el:checked+.x-field-mask::after{
+			 color: #E3701E; 
+		}  */
+		.x-input-el:checked+.x-field-mask::after{
+			background: #E3701E;
+		} 
+		.x-field-mask{
+			&:before{
+				content: "";
+				position:absolute;
+				width: 26px;
+				height: 26px;
+				top: 11px;
+				right: 11px;
+				border: 2px solid #EE7223;
+				background: white;
+			}
+			&:after{
+				content:"";
+				height: 16px;
+				width: 16px;
+				top: 16px;
+				right: 16px;
+			}
+		}
+	}
+	.submitBtnCls{
+		background: #E3701E;
+		border: 2px solid white;
+		@include border-radius(0);
+		min-width: 10em;
+		width: 50%;
+		margin-left:auto;
+		margin-top: 1em;
+		.x-button-label{
+			color: white;
+		}
+		&.x-button-pressing, .x-button-pressed{
+			background-color: #F09657;
+		}
+	}
+	.imagePreviewPanelCls{
+		margin-top: 0.75em;
+		@include box-shadow(0 0 5px 2px white);
+		background-color: rgba(white,0.3);
+	}
+	.topBarLoginCls.x-toolbar {
+		background: white;
+		padding: 0;
+		height: 2em;
+		min-height: 2em;
+		.x-button{
+			margin: 0;
+			padding: 0;
+			.x-button-label{
+				color: #F09657;
+				font-weight: normal;
+				font-size: 1em;
+				margin: 0;
+				line-height: 2em;
+			}
+			.x-button-icon{
+				background-size: 0.75em;
+			}
+		}
+		.x-title {
+			line-height: 1;
+			color: #8C8D8E;
+		}
+	}
+}
+.footerBarCls.x-toolbar {
+	background:white;
+	padding:0;
+	border:0;
+	font-size:0.75em;
+	.x-button.x-button-plain{
+		padding: 0;
+		margin: 0 0.75em;
+		height: 2.6em;
+		width: 2.6em;
+		-webkit-transition: all 300ms;
+		.x-button-icon{
+			height: 2em;
+			width: 2em;
+			background-size: contain;
+		}
+		&.x-button-pressing, .x-button-pressed{
+			-webkit-transform:scale(0.9);
+		}
+	}
+}
+
+
+.cls-skill-item{
+	color: #F09657;
+	padding-right: 0.5em;
+}
+
+.clsEndorsmentDataview, .clsMainFeedActivity{
+	.x-dataview-item {
+		@include st-box();
+		@incldue st-box-orient(horizontal);
+		background-color:rgba(black,0.35);
+		padding: 0.5em 1em;
+		margin: 0.3em -1em;
+		position: relative;
+		.thumb {
+			width: 2em;
+			height: 2em;
+			background-size: contain;
+			border: 2px solid white;
+			background-color: white;
+		}
+		.badge{
+				position: absolute;
+				width: 1.5em;
+				height: 1.5em;
+				left: 0.25em;
+				top: 2.5em;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+		}
+		.endorsPlayer{
+			position:relative;
+			margin-left: 20px;
+			@include st-box-flex(1);
+			font-size: 0.75em;
+			padding: 0.75em;
+			background: rgba(255,255,255,0.15);
+			.title {
+				color: #F09657;
+				font-weight: bold;
+				line-height: inherit;
+				span {
+					float: right;
+				}
+			}
+			&:before{
+				content:"";
+				position: absolute;
+				width: 20px;
+				height: 25px;
+				left: -19px;
+				top: 0.5em;
+				background-image:url("../images/left_arrow_shape.png");
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
+	}
+}
+.clsMainFeedActivity{
+	.clsTopbar.x-toolbar{
+		background:rgba(black,0.55);
+		border: 0;
+		padding-left: 1em;
+		.x-field {
+			margin: 0 1em 0 0;
+			.x-field-input{
+				padding-right:0;
+				font-size: 0.75em;
+				.x-input-el {
+					height:2em;
+					text-align: right;
+				}
+			}
+			&.x-field-focused{
+				.x-field-input{
+					.x-input-el {
+						text-align: left;
+					}
+				}
+			}
+		}
+		.x-button{
+			margin: 0;
+			.x-button-icon {
+				background-size:contain;
+			}
+		}
+	}
+	.x-dataview-item{
+		background: none;
+		margin: 0;
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+		padding-bottom: 1em;
+		.poster {
+			height: 8em;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			margin-top: 0.5em;
+		}	
+		.endorsPlayer{
+			background:none;
+			padding:0;
+			> div:first-child {
+				background: rgba(255,255,255,0.15);;
+				padding: 0.75em;
+			}
+ 			> div:last-child{
+				padding: 0.5em;
+				/* margin-top: 0.5em; */
+				background: rgba(255,255,255,0.15);
+				line-height: 1.5;
+			}
+			.comment-list{
+				.username{
+					color: #F09657;
+					font-weight: bold;
+					line-height: inherit;
+					text-transform: capitalize;
+				}
+				.message{
+					padding-left:1em;
+				}
+			}
+		}
+		.comments{
+			padding: 0.5em;
+			margin-top: 0.5em;
+			background: rgba(255,255,255,0.15);
+			line-height: 1.5;
+			> span{
+				float: right;
+				height: 1.5em;
+				width: 2em;
+				margin-left: 0.5em;
+				background-position: center;
+				background-size:contain;
+				background-repeat: no-repeat;
+			}
+			.comment{
+				background-image: url("../images/comment.png");
+			}
+			.like{
+				background-image: url("../images/like.png");
+				-webkit-transition: all 200ms;
+				&.dislike{
+					-webkit-transform: scale(-1,-1);
+				}
+			}
+		}
+	}
+}
+.clsPlayerAvatar{
+	height: 6em;
+	width: 6em;
+	background-size: contain;
+	background-color: white;
+	border:0.25em solid white;
+	margin-right: 0.5em;
+}
+.x-button.btnPlainProfileAction{
+	height: 2em;
+	width: 2.25em;
+	margin: 0 0.25em;
+	padding: 0;
+	.x-button-icon{
+		height: 1.25em;
+		width: 1.5em;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+}
+.clsPlayerTitle{
+	color: white;
+	.username{
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	.position{
+		span{
+			color: #F09657;
+		}
+	}
+}
+.mainNavigationToolbar{
+	padding: 0;
+	min-height: 2em;
+	height: 2em;
+	.x-button.leftMainMenuBtn{
+		margin:0;
+		padding: 0 0.25em;
+		.x-button-icon {
+			background-size: 1em;
+			width:1.25em;
+		}
+		.x-button-label{
+			margin: 0;
+			color: #EE7223;
+			font-weight:normal;
+			font-size: 1em;
+			line-height: 2;
+		}
+	}
+}
+.scoreboardListCls{
+	.scoreboardListItem,.miniChallengesItemCls{
+		color : white;
+		padding: 0.75em 1em;
+		@include st-box();
+		@include st-box-orient(horizontal);
+		@include st-box-pack(justify);
+		@include st-box-align(center);
+		&:first-child{
+			padding-top: 1em;
+		}
+		&:last-child{
+			padding-bottom: 1em;
+		}
+		&:nth-child(odd){
+			background: rgba(0,0,0,0.56);
+		}
+		.title{
+			text-transform: capitalize;
+			font-size: 1.2em;
+		}
+		.thumb{
+			width: 3.5em;
+			height: 3.5em;
+			background-size:3em;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-color: white;
+		}
+		.badge{
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 1.5em;
+			height: 1.5em;
+			margin-left:1em;
+		}
+		.detail{
+			margin-left: 1em;
+			@include st-box-flex(1);
+			line-height: 1.33;
+			text-transform: capitalize;
+		}
+		.points{
+			> div:first-child{
+				font-size: 1.75em;
+				text-align: center;
+			}
+			> div:last-child{
+				font-size: 0.75em;
+				color: #EE7223;
+				text-align: center;
+			}
+		}
+		.actionBtn {
+			padding: 0.5em 0  0;
+			.acceptCls, .denyCls {
+				display: inline-block;
+				padding: 0.25em 0.25em;
+				border: 2px solid;
+			}
+			.acceptCls {
+				margin-right: 1em;
+				border-color: white;
+				background: #EE7223;
+			}
+			.denyCls {
+				border-color: #EE7223;
+				background: white;
+				color: #FF6300;
+			}
+		}
+	}
+	.miniChallengesItemCls{
+		@include st-box-orient(vertical);
+		@include st-box-align(stretch);
+		.title{
+			text-transform: capitalize;
+			font-size: 1.2em;
+		}
+		.question{
+			font-size: 0.9em;
+		}
+		.detail{
+			display:none;
+			.answer {
+				border: 1px solid white;
+				margin: 0.5em 0;
+				padding: 0.5em;
+			}
+		}
+		&.x-item-selected{
+			.detail{
+				display:block;
+			}
+		}
+	}
+}
+.mainMenuOverlayCls.x-panel.x-floating{
+	padding:0;
+	.x-panel-inner{
+		border-radius: 0;
+		border: 0;
+	}
+	.x-dataview {
+		.x-dataview-item{
+			font-size: 0.9em;
+			width: 33%;
+			line-height: 2.5;
+			padding-left: 0.75em;
+			color: #EE7223;
+			&.x-item-pressed{
+				background-color: #EE7223;
+				color: white;
+			}
+		}
+	}
+}
+
+.postBtnCls{
+	background: #EE7223;
+	width: 7em;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 1.2em;
+	border: 2px solid white;
+}
+.completedBtnCls{
+	background: #09BD00;
+	width: 7em;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 1.2em;
+	border: 2px solid white;
+}
+
+.x-msgbox{
+	border: 0;
+	@include border-radius(0);
+	background: rgba(255,255,255,0.85);
+	padding: 1em;
+	margin: 0;
+	.x-msgbox-title{
+		height: 2em;
+		.x-title{
+			margin: 0;
+			color: #E36F1E;
+			font-size: 1.2em;
+			font-weight: normal;
+		}
+	}
+	.x-msgbox-text {
+		color: black;
+		text-align: left;
+		padding: 0.5em 0;
+		text-shadow: none;
+	}
+	.x-field {
+		margin-bottom: 0.5em;
+		.x-component-outer{
+			background: white;
+			border: 2px solid #EE7223;
+			.x-input-el {
+				background: 0;
+			}
+		}
+	}
+	.x-msgbox-buttons{
+		padding: 0;
+		.x-button {
+			background: #E3701E;
+			border: 2px solid white;
+			@include border-radius(0);
+			height: 2.25em;
+			min-width: 8em;
+			margin:0 0.5em;
+			.x-button-label{
+				color: white;
+				font-size: 1em;
+				text-shadow: none			
+			}
+			&.x-button-pressing, &.x-button-pressed, &.x-button-active{
+				background: #F09657;
+			}
+			&:first-child{
+				margin-left: 0;
+			}
+			&:last-child{
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.skillDataviewCls{
+	.x-dataview-item {
+		background: white;
+		margin: 0 0 0.5em;
+		padding: 0.5em;
+		border: 2px solid #EE7223;
+		position: relative;
+		&.checkableCls{
+			&:before{
+				@include insertion(1.5em,1.5em,0.25em,auto);
+				right: 0.25em;
+				border: 2px solid #EE7223;
+			}
+			&.x-item-selected{
+				&:after {
+					@include insertion(1em,1em,0.5em,auto);
+					right: 0.5em;
+					background: #EE7223;
+					z-index: 1;
+				}
+			}
+		}
+	}
+	@media(max-width:599px){
+		.x-dataview-item {
+			width: 100%;
+		}
+	}
+	@media(min-width:600px){
+		.x-dataview-item {
+			width: 49%;
+			&:nth-child(odd){
+				margin-right:1%;
+			}
+			&:nth-child(even){
+				margin-left:1%;
+			}
+		}
+	}
+}
