@@ -3,8 +3,8 @@ Ext.define('HungerApp.store.UserChallenge', {
     
     config: {
         model: 'HungerApp.model.UserChallenge',
-        autoLoad:true,
-        autoSync:true,
+        // autoLoad:true,
+        // autoSync:true,
         proxy:{
    			type:'ajax',
 			url : applink+'api/challenges',
@@ -18,5 +18,11 @@ Ext.define('HungerApp.store.UserChallenge', {
 				rootProperty:'challenges',
 			},
 		},
+		sorters: [
+			{
+				property : "created_at",
+				direction: "DESC"
+			}
+		]
     }
 });

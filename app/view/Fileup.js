@@ -183,30 +183,30 @@ Ext.define("HungerApp.view.Fileup", {
       // } else {}
    }, */
    doLoad: function (b) {
-      var c = this;
-      var a = new FileReader();
-      a.onerror = function (f) {
-         var d;
-         switch (f.target.error.code) {
-         case f.target.error.NOT_FOUND_ERR:
-            d = "File Not Found";
-            break;
-         case f.target.error.NOT_READABLE_ERR:
-            d = "File is not readable";
-            break;
-         case f.target.error.ABORT_ERR:
-            break;
-         default:
-            d = "Can not read file"
-         }
-         c.fireEvent("loadfailure", d, this, f)
-      };
-      a.onload = function (d) {
-		console.log(d);
-         c.fireEvent("loadsuccess", this.result, this, d);
-         //c.changeState("browse")
-      };
-      a.readAsDataURL(b)
+		  var c = this;
+		  var a = new FileReader();
+		  a.onerror = function (f) {
+			 var d;
+			 switch (f.target.error.code) {
+			 case f.target.error.NOT_FOUND_ERR:
+				d = "File Not Found";
+				break;
+			 case f.target.error.NOT_READABLE_ERR:
+				d = "File is not readable";
+				break;
+			 case f.target.error.ABORT_ERR:
+				break;
+			 default:
+				d = "Can not read file"
+			 }
+			 c.fireEvent("loadfailure", d, this, f)
+		  };
+		  a.onload = function (d) {
+			console.log(d);
+			 c.fireEvent("loadsuccess", this.result, this, d);
+			 //c.changeState("browse")
+		  };
+          a.readAsDataURL(b)
    },
    doUpload: function (b,extraParams) {
       var d = this;

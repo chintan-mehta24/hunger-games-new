@@ -212,6 +212,7 @@ html,  body{
 			background-color: white;
 			background-repeat: no-repeat;
 			background-position: center;
+			background-size:cover;
 		}
 		.badge{
 				position: absolute;
@@ -234,6 +235,7 @@ html,  body{
 				color: #F09657;
 				font-weight: bold;
 				line-height: inherit;
+				text-transform:capitalize;
 				span {
 					float: right;
 				}
@@ -290,7 +292,7 @@ html,  body{
 		padding-top: 0;
 		padding-bottom: 1em;
 		.poster {
-			height: 8em;
+			height: 10em;
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center;

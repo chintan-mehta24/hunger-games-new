@@ -138,14 +138,14 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				autoSelect : false,
 				displayField:'text'				
 			},
-			{
+/* 			{
 				xtype: 'textfield',
 				label: 'Company Title:',
 				labelAlign: 'top',
 				name: 'company_title',
 				autoCapitalize : false,
 				placeHolder : 'Company Title'
-			},
+			}, */
 			{
 				xtype  : 'selectfield',
 				label: 'MD/Sponsor:',

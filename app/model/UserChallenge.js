@@ -7,13 +7,10 @@ Ext.define('HungerApp.model.UserChallenge', {
             {name: 'title', type: 'string'},
             {name: 'description', type: 'string'},
             {name: 'is_published', type: 'auto'},
+			{name: 'video_challenge',type: 'auto'},
+			{name: 'create_at',type: 'auto'},
+			{name: 'posted',type: 'auto'},
 			{name: 'challenge_id', type: 'string'}
-        ],
-/*		autoLoad:true,
-        autoSync:true,
-        proxy:{
-   			type:'ajax',
-			url : applink+'api/challenges',
-        }*/
+        ]
     }
 });
