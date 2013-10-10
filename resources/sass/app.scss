@@ -208,9 +208,10 @@ html,  body{
 		.thumb {
 			width: 2em;
 			height: 2em;
-			background-size: contain;
 			border: 2px solid white;
 			background-color: white;
+			background-repeat: no-repeat;
+			background-position: center;
 		}
 		.badge{
 				position: absolute;
@@ -308,16 +309,22 @@ html,  body{
 				background: rgba(255,255,255,0.15);
 				line-height: 1.5;
 			}
+		}
+		.comment-list{
+			display:none;
+			.username{
+				color: #F09657;
+				font-weight: bold;
+				line-height: inherit;
+				text-transform: capitalize;
+			}
+			.message{
+				padding-left:1em;
+			}
+		}
+		&.show-comment{
 			.comment-list{
-				.username{
-					color: #F09657;
-					font-weight: bold;
-					line-height: inherit;
-					text-transform: capitalize;
-				}
-				.message{
-					padding-left:1em;
-				}
+				display: block;
 			}
 		}
 		.comments{

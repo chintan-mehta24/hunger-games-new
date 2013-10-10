@@ -6,7 +6,7 @@ Ext.define('HungerApp.view.MainActivity', {
 		padding: '1em',
 		style : 'color : white;',
 		itemTpl: new Ext.XTemplate([
-						'<div class="thumb avatar" style="background-image:url({thumb});"></div>',
+						'<div class="thumb avatar" style="background-image:url({profile_image});"></div>',
 						'<div class="badge"  style="background-image:url({badge});"></div>',
 						'<div class="endorsPlayer">',
 							'<div>',
@@ -108,23 +108,31 @@ Ext.define('HungerApp.view.MainActivity', {
 		}]
 	},
 	onItemTapAction: function(ths,index,target,record,e){
-/* 		if(e.getTarget('.avatar')){
-			var homeview = Ext.Viewport.down('homeview');
-			homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
+ 		if(e.getTarget('.avatar')){
+//			var homeview = Ext.Viewport.down('homeview');
+//			homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
+			var homeController=HungerApp.app.getController('Home');
+			homeController.setProfilePageData(record.get('user_id'));
 			return true;
-		}	*/
+		}	
+		var me = this;
  		var el = e.getTarget('.like');
 		if(el){
 			var like = !e.getTarget('.dislike');
 			this.doLikeDislike(record,like);
 			return true;
 		}
-		if(e.getTarget('.comments')){
-			var me = this;
+		var elComment = e.getTarget('.comment');
+		if(elComment){
 			Ext.Msg.prompt(record.get("user_name"),"Enter the Text to Comment:",function(btn,value){
 				if(btn=="ok")
 					me.doComment(record,value);
 			},me);
+			return true;
+		}
+		if(e.getTarget('.comments')){
+			var me = this;
+			target.addCls("show-comment");
 			return true;
 		}
 	},

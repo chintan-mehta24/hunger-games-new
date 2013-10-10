@@ -363,16 +363,17 @@ Ext.define('HungerApp.controller.Home', {
 				}
 				Ext.Msg.alert(null,data.message);
 				var userStore = Ext.getStore('PlayerRequest');
-				userStore.clearData();
+				var userRec = userStore.findRecord('user_id',uid);
+				if(userRec)
+					userRec.destroy();
+//				userStore.clearData();
 				
 				var homeview = Ext.Viewport.down('homeview');
-				if(userStore.getCount()>0)
-				{
+				if(userStore.getCount()>0){
 					var userStore = Ext.getStore('Profile');
 					me.getPlayerReq(userStore.getAt(0).data.auth_token);
 				}
-				else
-				{
+				else{
 					homeview.down('#mainNavigationTopbar').setHidden(false);
 					homeview.animateActiveItem('#idListMainFeed',{type:'slide',direction: 'left'});
 				}
