@@ -8,7 +8,7 @@ Ext.define('HungerApp.model.UserChallenge', {
             {name: 'description', type: 'string'},
             {name: 'is_published', type: 'auto'},
 			{name: 'video_challenge',type: 'auto'},
-			{name: 'create_at',type: 'auto'},
+			{name: 'create_at',type: 'date'},
 			{name: 'posted',type: 'auto'},
 			{name: 'challenge_id', type: 'string'}
         ]

@@ -6,18 +6,6 @@ Ext.define('HungerApp.view.SupportPlayer', {
 			labelWidth: 'auto'
 		},
 		items : [
-		/*	{
-				docked: 'top',
-				ui: 'plain',
-				xtype: 'titlebar',
-				title: 'Support Player',
-				items:[{
-					xtype: 'button',
-					ui: 'back',
-					text: 'Back',
-					itemId: 'btnRegistrationBack'
-				}]
-			},*/
 			{
 				xtype : 'label',
 				cls: 'welcomeMsgCls',
@@ -29,18 +17,17 @@ Ext.define('HungerApp.view.SupportPlayer', {
 				flex : 1,
 				labelAlign: 'top',
 				name: 'player',
+				itemId: 'playerId',
 				placeHolder : 'Select player',
-				options: [
-					{text: 'P - 1',  value: 'first'},
-					{text: 'P - 2', value: 'second'},
-					{text: 'P - 3',  value: 'third'}
-				],
 				autoSelect : false,
-				displayField:'text'				
+				store: 'PlayerList',
+				displayField: 'fullname',
+				valueField: 'id'
 			},
 			{
 				xtype : 'button',
 				text  : 'Submit Support',
+				itemId: 'btnSupportPlayer',
 				cls   : 'submitBtnCls'
 			}
 		],
@@ -48,10 +35,58 @@ Ext.define('HungerApp.view.SupportPlayer', {
 			delegate: '#btnRegistrationBack',
 			event: 'tap',
 			fn: 'backFromRegistration'
+		},{
+			event: 'painted',
+			fn: 'loadPlayers'
+		},{
+			delegate: '#btnSupportPlayer',
+			event: 'tap',
+			fn: 'doSupportPlayer'
 		}]
 	},
 	backFromRegistration: function(){
 		var homeview = Ext.Viewport.down('homeview');
 		homeview.animateActiveItem('#panelHomeLogin',{type:'slide',direction: 'right'});
+	},
+	loadPlayers: function(){
+		var userProfile = Ext.getStore('Profile'),
+			record = userProfile.getAt(0),
+			auth_token = record.get('auth_token'),
+			playerList = Ext.getStore('PlayerList'),
+			playerProxy = playerList.getProxy();
+		playerProxy.setExtraParams({
+			auth_token : auth_token
+		});
+		playerList.load();
+		Ext.Viewport.setMasked(false);
+	},
+	doSupportPlayer:function(){
+		var currentUserProfile = Ext.getStore('Profile'),
+			currentUser = currentUserProfile.getAt(0),
+			currentUser_id = currentUser.get('user_id');
+		var field = this.down('#playerId'),
+			value = field.getValue();
+		console.log(value)
+		if(!value)
+			return;
+		Ext.Ajax.request({
+			url:applink+"api/users/support_to_player",
+			method:"POST",
+			jsonData : {
+				auth_token : currentUser.get('auth_token'),
+				support : value
+			},
+			success:function(res){
+				var resData = Ext.decode(res.responseText);
+				if(resData.errors){
+					Ext.Msg.alert("Error",resData.errors);
+					return;
+				}
+				Ext.Msg.alert("",resData.message);
+			},
+			failure:function(res){
+				Ext.Msg.alert("Error","Status Code: " + res.status);
+			}
+		});
 	}
 });

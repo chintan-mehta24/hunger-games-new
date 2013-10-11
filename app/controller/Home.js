@@ -267,7 +267,12 @@ Ext.define('HungerApp.controller.Home', {
 				profileForm.down('#bio').setHtml(data.bio);
 				
 				if(isMyProfile){
-					profileForm.down('#charity').setHidden(false);
+					var component = profileForm.down('#charity');
+					component.setHidden(false);
+					if(data.support)
+						component.down('#btnSupportPlayer').setHidden(true);
+					else
+						component.down('#btnSupportPlayer').setHidden(false);
 				}
 				else{
 					profileForm.down('#charity').setHidden(true);		

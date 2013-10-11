@@ -18,6 +18,7 @@ Ext.define('HungerApp.model.Profile', {
             {name: 'auth_token', type: 'string'},
             {name: 'user_id', type: 'string'},
 			{name: 'md_id', type: 'string'},
+			{name: 'support', type: 'string'},
 			{name: 'country', type: 'string'}
 			
         ],

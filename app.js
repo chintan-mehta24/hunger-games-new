@@ -83,7 +83,8 @@ Ext.application({
 		'PlayerRequest',
 		'ReviewList',
 		'MiniChallenge',
-		'ScoreBoard'
+		'ScoreBoard',
+		'PlayerList'
 	],
 
     controllers: ['Home'],
