@@ -1,6 +1,6 @@
 $include-toolbar-uis: false;
-@import 'sencha-touch/default';
 
+@import 'sencha-touch/default';
 $form-bg-color: transparent;
 $page-bg-color: transparent;
 $form-label-background-color: transparent;
@@ -9,6 +9,7 @@ $form-dark: white;
 $form-field-height: 2em;
 
 @import 'sencha-touch/default/all';
+
 html,  body{
 	font-family:"myriad Pro";
 }
@@ -190,13 +191,10 @@ html,  body{
 		}
 	}
 }
-
-
 .cls-skill-item{
 	color: #F09657;
 	padding-right: 0.5em;
 }
-
 .clsEndorsmentDataview, .clsMainFeedActivity{
 	.x-dataview-item {
 		@include st-box();
@@ -212,7 +210,7 @@ html,  body{
 			background-color: white;
 			background-repeat: no-repeat;
 			background-position: center;
-			background-size:cover;
+			background-size: cover;
 		}
 		.badge{
 				position: absolute;
