@@ -46,6 +46,12 @@ Ext.define('HungerApp.view.JudgeChallenge', {
 						Ext.Msg.alert("Error",loginData.errors);
 						return;
 					}
+
+					if(!loginData.player_challenges)
+					{
+						Ext.Msg.alert(null,"Yet not posted by any player.");
+						return;
+					}
 					
 					var store = Ext.getStore('ReviewList');
 					store.clearData();

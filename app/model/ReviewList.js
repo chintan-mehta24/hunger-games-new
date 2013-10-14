@@ -13,7 +13,9 @@ Ext.define('HungerApp.model.ReviewList', {
             {name: 'date_submitted', type: 'string'},
             {name: 'name', type: 'string'},
             {name: 'email', type: 'string'},
-            {name: 'last_name', type: 'string'}
+            {name: 'last_name', type: 'string'},
+			{name: 'post_url', type: 'string'},
+            {name: 'avatar_content_type', type: 'string'}
         ],
     }
 });
