@@ -249,9 +249,12 @@ Ext.define('HungerApp.controller.Home', {
 
     setProfilePageData: function( user_id, isMyProfile){
 		var me = this;
+		var userStore = Ext.getStore('Profile'),
+			record = userStore.getAt(0),
+			auth_token = record.get('auth_token');
 
 		Ext.Ajax.request({
-			url:applink+"api/users/get_profile",
+			url:applink+"api/users/get_profile?auth_token=" + auth_token,
 			method:"POST",
 			jsonData : {
 					user_id : user_id
@@ -294,9 +297,19 @@ Ext.define('HungerApp.controller.Home', {
 					skillStore = skillDataview.getStore();
 				if(skillStore){
 					skillStore.clearData();
+					if(!isMyProfile){
+						data.skills.forEach(function(skill){
+							if(data.skills_endorse.indexOf(skill.id) >= 0)
+								skill.isEndorse = "endorsed";
+						});
+						console.log(data.skills);
+					}
 					skillStore.add(data.skills);
 				}
-				
+				var challenges_Dataview = profileForm.down('#recent_challenges'),
+					challenges_store = challenges_Dataview.getStore();
+				challenges_store.clearData();
+				challenges_store.add(data.player_challenges);
 				profileForm.down('#avatar_url').setSrc(data.avatar_url);
 				homeview.animateActiveItem('#formUserProfile',{type:'slide',direction:'left',duration:200});
 				

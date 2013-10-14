@@ -19,7 +19,8 @@ Ext.define('HungerApp.model.Profile', {
             {name: 'user_id', type: 'string'},
 			{name: 'md_id', type: 'string'},
 			{name: 'support', type: 'string'},
-			{name: 'country', type: 'string'}
+			{name: 'country', type: 'string'},
+			{name: 'skills_endorse', type: 'auto'}
 			
         ],
 /*		autoLoad:true,

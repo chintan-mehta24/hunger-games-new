@@ -414,9 +414,9 @@ html,  body{
 		color : white;
 		padding: 0.75em 1em;
 		@include st-box();
-		@include st-box-orient(horizontal);
+		@include st-box-orient(vertical);
+		@include st-box-align(stretch);
 		@include st-box-pack(justify);
-		@include st-box-align(center);
 		&:first-child{
 			padding-top: 1em;
 		}
@@ -425,6 +425,27 @@ html,  body{
 		}
 		&:nth-child(odd){
 			background: rgba(0,0,0,0.56);
+		}
+		.scorecard-user{
+			@include st-box();
+			@include st-box-flex(1);
+			@include st-box-orient(horizontal);
+			@include st-box-align(center);
+			@include st-box-pack(justify);
+		}
+		.scorecard-detail{
+			display: none;
+		}
+		&.x-item-selected{
+			.scorecard-detail{
+				min-height: 4em;
+				@include st-box();
+				@include st-box-orient(vertical);
+				@include st-box-pack(justify);
+				> div {
+					@include st-box-flex(1);
+				}
+			}
 		}
 		.title{
 			text-transform: capitalize;
@@ -483,8 +504,6 @@ html,  body{
 		}
 	}
 	.miniChallengesItemCls{
-		@include st-box-orient(vertical);
-		@include st-box-align(stretch);
 		.title{
 			text-transform: capitalize;
 			font-size: 1.2em;
@@ -613,6 +632,20 @@ html,  body{
 		padding: 0.5em;
 		border: 2px solid #EE7223;
 		position: relative;
+		&.profileSkills{
+			padding: 0;
+			border: 0;
+			.skill{
+				border: 2px solid #EE7223;
+				padding: 0.5em;
+				color:#EE7223;
+				&.endorsed{
+					border: 2px solid white;
+					color:white;
+					background-color: #EE7223;
+				}
+			}
+		}
 		&.checkableCls{
 			&:before{
 				@include insertion(1.5em,1.5em,0.25em,auto);

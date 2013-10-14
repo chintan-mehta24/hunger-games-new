@@ -10,7 +10,6 @@ var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url({endo
 										   return Ext.Date.format(new Date(date), 'd/m/y');
 										},
 									});
-
 Ext.define('HungerApp.view.UserProfile', {
 	extend: 'Ext.form.Panel',
 	xtype: 'userprofile',
@@ -20,9 +19,9 @@ Ext.define('HungerApp.view.UserProfile', {
 			{
 				xtype : 'panel',
 				layout: {
-					type : 'hbox',
-					align : 'center',
-					pack: 'start'
+					align:'stretch',
+					pack: 'justify',
+					type : 'hbox'
 				},
 				items : [
 					{
@@ -81,6 +80,7 @@ Ext.define('HungerApp.view.UserProfile', {
 									icon: 'resources/images/support.png',
 									itemId : 'btnSupportPlayer'
 								},{
+									hidden: true,
 									icon: 'resources/images/donate.png',
 									itemId : 'btnPledgeCharityPage'
 								}]
@@ -99,12 +99,13 @@ Ext.define('HungerApp.view.UserProfile', {
 				xtype: 'dataview',
 				name: 'skills',
 				cls: 'skillDataviewCls',
+				itemCls: 'profileSkills',
 				itemId: 'userSkills',
-				itemTpl: '{name}',
+				itemTpl: '<div class="skill {isEndorse}">{name}</div>',
 				inline: true,
 				scrollable: null,
 				store:{
-					fields:['name','id'],
+					fields:['name','id','isEndorse'],
 					data:[]
 				},
 				items:[{
@@ -134,13 +135,31 @@ Ext.define('HungerApp.view.UserProfile', {
 				style : 'color : white;',
 				itemTpl: tp,
 				store : 'GetUserData'
-				//data:[]
-			/*	data: [
-					{ title: 'Player Name 1', date:'9/12/13', message: 'This user endorses John Doe for Great Marketing Skills',thumb : 'resources/images/user.png'},
-					{ title: 'Player Name 2', date:'9/12/13', message: 'This user endorses John Doe for Great Marketing Skills',thumb : 'resources/images/user.png'},
-					{ title: 'Player Name 3', date:'9/12/13', message: 'This user endorses John Doe for Great Marketing Skills',thumb : 'resources/images/user.png'},
-					{ title: 'Player Name 4', date:'9/12/13', message: 'This user endorses John Doe for Great Marketing Skills',thumb : 'resources/images/user.png'}
-				]*/
+			},
+			{
+				xtype : 'dataview',
+				scrollable : null,
+				itemId : 'recent_challenges',
+				cls: 'clsEndorsmentDataview',
+				style : 'color : white;',
+				itemTpl: new Ext.XTemplate('<div class="endorsPlayer">',
+							'<div class="title">{title}<span>{created_at:this.setMyDate}</span></div>',
+							'<div class="message">{description}</div>',
+						'</div>',{
+							setMyDate:function(date){
+							   return Ext.Date.format(new Date(date), 'd/m/y');
+							}
+						}),
+				store : {
+					fields:["description","title","created_at"]
+				},
+				items:[{
+					xtype: 'label',
+					scrollDocked: 'top',
+					//docked: 'top',
+					cls   : 'formExtraLableCls',
+					html: 'Challenges Completed: '
+				}]
 			}
 		],
 		listeners : [ {
@@ -172,7 +191,7 @@ Ext.define('HungerApp.view.UserProfile', {
 		var currentUserProfile = Ext.getStore('Profile'),
 			currentUser = currentUserProfile.getAt(0),
 			currentUser_id = currentUser.get('user_id');
-		if(user_id == currentUser_id)	//Current User
+		if(user_id == currentUser_id || record.get('isEndorse'))	//Current User
 			return true;
 			
 		Ext.Ajax.request({
