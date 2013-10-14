@@ -1,23 +1,36 @@
 Ext.define('HungerApp.view.ActionSheetViewChallenge', {
-	extend: 'Ext.ActionSheet',
+	extend: 'Ext.Panel',
 	xtype: 'ActionSheetViewChallenge',
 	config: {
-		height : '100%',
-		width  : '100%',
-		hidden : true,
+		//height : '100%',
+		//width  : '100%',
+		backForm: null,
+		layout : 'card',
 		items: [
 			{
 				docked: 'top',
 				xtype: 'titlebar',
-				title: 'Video',
+				cls: 'topBarLoginCls',
+				title: '',
 				ui: 'plain',
 				items:[{
 					xtype: 'button',
-					text: 'close',
+					ui: 'plain',
+					icon: 'resources/images/left_arrow.png',
+					text: 'Back',
 					handler : function(){
-						var homeview = Ext.Viewport.down('homeview');	
-						var ActionSheetViewChallenge = homeview.down('#idActionSheetViewChallenge');		
-						ActionSheetViewChallenge.hide();
+						//var homeview = Ext.Viewport.down('homeview');	
+						//var ActionSheetViewChallenge = homeview.down('#idActionSheetViewChallenge');		
+						//ActionSheetViewChallenge.hide();
+						
+						//var backform = this.getConfig('backForm');
+						var homeview = Ext.Viewport.down('homeview');
+						//if(backform)
+							//homeview.animateActiveItem('#' + backform, {type:'slide',direction: 'right'});
+						//else
+							homeview.animateActiveItem('#idChallengeReview',{type:'slide',direction: 'right'});
+						//this.setConfig('backForm',null);
+						
 					}
 				}]
 			},

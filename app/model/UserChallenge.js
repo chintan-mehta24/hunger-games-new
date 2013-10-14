@@ -10,7 +10,8 @@ Ext.define('HungerApp.model.UserChallenge', {
 			{name: 'video_challenge',type: 'auto'},
 			{name: 'create_at',type: 'date'},
 			{name: 'posted',type: 'auto'},
-			{name: 'challenge_id', type: 'string'}
+			{name: 'challenge_id', type: 'string'},
+			{name: 'posted', type: 'string'}
         ]
     }
 });

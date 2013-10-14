@@ -34,6 +34,9 @@ Ext.define('HungerApp.view.ChallengeReview', {
 			{
 				ActionSheetViewChallenge.down('#idVideo').setHidden(false);
 				ActionSheetViewChallenge.down('#idVideo').setUrl(post_url);
+				ActionSheetViewChallenge.down('#idVideo').play();
+				ActionSheetViewChallenge.down('#idVideo').ghost.hide();
+				ActionSheetViewChallenge.down('#idVideo').media.show();
 				ActionSheetViewChallenge.down('#idImage').setHidden(true);
 			}
 			else if(type.toLowerCase()=="image")
@@ -42,8 +45,8 @@ Ext.define('HungerApp.view.ChallengeReview', {
 				ActionSheetViewChallenge.down('#idImage').setHidden(false);
 				ActionSheetViewChallenge.down('#idImage').setSrc(post_url);				
 			}
-			
-			ActionSheetViewChallenge.show();
+			ActionSheetViewChallenge.setBackForm(this.getItemId());
+			homeview.animateActiveItem('#idActionSheetViewChallenge',{type:'slide',direction: 'left'})
 			
 			//var homeview = Ext.Viewport.down('homeview');
 			//homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});

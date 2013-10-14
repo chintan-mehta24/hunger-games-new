@@ -284,6 +284,9 @@ Ext.define('HungerApp.view.Home', {
 						var userStore = Ext.getStore('Profile'),
 							record = userStore.getAt(0),
 							status = record.get('status');
+						var userChallenge = Ext.getStore('UserChallenge');
+						userChallenge.getProxy().setUrl(applink+'api/challenges?user_id='+record.get('user_id'));
+						userChallenge.load();
 						if(status=="player")
 							me.animateActiveItem('#idUserChallenge',{type:'slide',direction:'left',duration:200});
 						else if(status=="judge")
