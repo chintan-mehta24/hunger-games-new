@@ -14,6 +14,10 @@ Ext.define('HungerApp.view.Home', {
 			{
 				xtype: 'titlebar',
 				docked: 'top',
+				layout:{
+					align:'stretch',
+					pack: 'justify'
+				},
 				hidden: true,
 				itemId: 'mainNavigationTopbar',
 				cls: 'mainNavigationToolbar',

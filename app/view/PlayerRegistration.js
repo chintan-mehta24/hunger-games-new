@@ -12,6 +12,10 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				xtype: 'titlebar',
 				title: 'Player Registration',
 				cls: 'topBarLoginCls',
+				layout:{
+					align:'stretch',
+					pack: 'justify'
+				},
 				items:[{
 					xtype: 'button',
 					ui: 'plain',
@@ -89,7 +93,11 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 			},
 			{
 				xtype : 'container',
-				layout : 'hbox',
+				layout:{
+					align:'stretch',
+					type: 'hbox',
+					pack: 'justify'
+				},
 				defaults:{
 					labelWidth: 'auto',
 					labelAlign: 'right'
@@ -98,7 +106,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+//						flex: 1,
 						value: 'Male',
 						label: 'Male:',
 						itemId: 'checkBoxMale',
@@ -107,7 +115,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+//						flex: 1,
 						value: 'Female',
 						itemId: 'checkBoxFemale',
 						label: 'Female:'
