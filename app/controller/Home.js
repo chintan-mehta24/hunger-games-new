@@ -209,12 +209,15 @@ Ext.define('HungerApp.controller.Home', {
 
     doEditProfile: function(data,backRef){
 		var me = this;
+		var skills = data.skills;
+		delete data.skills;
 		//alert(data.auth_token)
 		Ext.Ajax.request({
 			url:applink+"api/users/edit_profile?auth_token="+data.auth_token,
 			method:"POST",
 			jsonData : {
-					user : data
+					user : data,
+					skills : skills
 			},
 			success:function(res){
 				console.log(res);

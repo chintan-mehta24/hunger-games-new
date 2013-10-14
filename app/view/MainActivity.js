@@ -55,6 +55,10 @@ Ext.define('HungerApp.view.MainActivity', {
 		items:[{
 			xtype: 'toolbar',
 			docked: 'top',
+			layout:{
+//				align:'stretch',
+				pack: 'justify'
+			},
 			cls: 'clsTopbar',
 			ui: 'plain',
 			items:[{
@@ -124,10 +128,21 @@ Ext.define('HungerApp.view.MainActivity', {
 		}
 		var elComment = e.getTarget('.comment');
 		if(elComment){
-			Ext.Msg.prompt(record.get("user_name"),"Enter the Text to Comment:",function(btn,value){
+			var msgBox = Ext.Msg.prompt(record.get("user_name"),"Enter the Text to Comment:",function(btn,value){
 				if(btn=="ok")
 					me.doComment(record,value);
-			},me);
+			},me,null,null,{
+				itemId: "commentField"
+				// listeners:{
+					// action: function(){
+						// console.log("actions")
+					// }
+				// }
+			});	
+			msgBox.down('#commentField').on('action',function(ths){
+				this.hide();
+				me.doComment(record,ths.getValue());
+			});
 			return true;
 		}
 		if(e.getTarget('.comments')){

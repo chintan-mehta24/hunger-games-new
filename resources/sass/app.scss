@@ -13,6 +13,9 @@ $form-field-height: 2em;
 html,  body{
 	font-family:"myriad Pro";
 }
+.x-flexed {
+	@include st-box-flex(1);
+}
 
 .x-chart-watermark{
 	display:none;

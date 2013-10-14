@@ -122,14 +122,14 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 				autoSelect : false,
 				displayField:'text'				
 			},
-			{
-				xtype: 'textfield',
-				label: 'Company Title:',
-				labelAlign: 'top',
-				name: 'company_title',
-				autoCapitalize : false,
-				placeHolder : 'Company Title'
-			},
+			// {
+				// xtype: 'textfield',
+				// label: 'Company Title:',
+				// labelAlign: 'top',
+				// name: 'company_title',
+				// autoCapitalize : false,
+				// placeHolder : 'Company Title'
+			// },
 			{
 				xtype: 'textfield',
 				label: 'Country:',

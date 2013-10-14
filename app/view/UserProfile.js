@@ -109,7 +109,8 @@ Ext.define('HungerApp.view.UserProfile', {
 				},
 				items:[{
 					xtype: 'label',
-					docked: 'top',
+					scrollDocked: 'top',
+					//docked: 'top',
 					cls   : 'formExtraLableCls',
 					html: 'Skill set: '
 				}]
@@ -186,6 +187,13 @@ Ext.define('HungerApp.view.UserProfile', {
 				}
 			},
 			success:function(res){
+				var loginData = Ext.decode(res.responseText);
+				if(loginData.errors){
+					Ext.Msg.alert("Error",loginData.errors);
+					return;
+				}
+				Ext.Msg.alert("",loginData.message);
+				
 			},
 			failure:function(res){
 				Ext.Msg.alert("Error","Status Code: " + res.status);
