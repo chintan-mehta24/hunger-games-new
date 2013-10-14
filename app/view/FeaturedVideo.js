@@ -21,7 +21,6 @@ Ext.define('HungerApp.view.FeaturedVideo', {
 			{
 				xtype    : 'video',
 				flex	 : 1,
-				autoResume : true,
 				url      : "http://www.w3schools.com/html/movie.mp4",
 				posterUrl: 'http://t3.gstatic.com/images?q=tbn:ANd9GcSbXFQNac9_ND3jKI9Dvh2VF05eliTez8aZaj48Jo4vECE4nYJphA&t=1'
 			}

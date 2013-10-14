@@ -49,7 +49,7 @@ Ext.define('HungerApp.view.JudgeChallenge', {
 					
 					var store = Ext.getStore('ReviewList');
 					store.clearData();
-					store.add(loginData.playes_challenge);
+					store.add(loginData.player_challenges);
 					
 					
 					var homeview = Ext.Viewport.down('homeview');

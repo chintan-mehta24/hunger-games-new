@@ -7,7 +7,7 @@ Ext.define('HungerApp.view.MainActivity', {
 		style : 'color : white;',
 		itemTpl: new Ext.XTemplate([
 						'<div class="thumb avatar" style="background-image:url({profile_image});"></div>',
-						'<div class="badge"  style="background-image:url({badge});"></div>',
+						'<div class="badge"  style="background-image:url(resources/images/{status}.png);"></div>',
 						'<div class="endorsPlayer">',
 							'<div>',
 								'<div class="title">{user_name}<span>{created_at:this.convertDate}</span></div>',

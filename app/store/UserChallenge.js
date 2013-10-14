@@ -3,7 +3,7 @@ Ext.define('HungerApp.store.UserChallenge', {
     
     config: {
         model: 'HungerApp.model.UserChallenge',
-        // autoLoad:true,
+         autoLoad:true,
         // autoSync:true,
         proxy:{
    			type:'ajax',

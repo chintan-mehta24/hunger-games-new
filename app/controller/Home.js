@@ -16,6 +16,10 @@ Ext.define('HungerApp.controller.Home', {
     },
     launch:function(){
             var me = this;
+			
+			//ActionSheetViewChallenge = Ext.create('HungerApp.view.ActionSheetViewChallenge');
+			//Ext.Viewport.add(ActionSheetViewChallenge);
+			
 			Ext.Ajax.on('beforerequest',function(){
 				Ext.Viewport.setMasked({xtype:'loadmask'});
 			});
@@ -325,18 +329,22 @@ Ext.define('HungerApp.controller.Home', {
 		});
 	},
 	
-	sendPoints :function(backRef){
+	sendPoints :function(uid,token,cid,points){
 		var me = this;
-		var homeview = Ext.Viewport.down('homeview');
+		//var homeview = Ext.Viewport.down('homeview');
 		//var videoView = homeview.down('#idFeaturedVideo');
 		//videoView.setBackForm(backRef.getItemId());
 		//homeview.animateActiveItem('#idFeaturedVideo',{type:'slide',direction:'left',duration:200});
-		return;
+		//return;
 		Ext.Ajax.request({
-			url:applink+"api/",
+			url:applink+"api/judge_points?auth_token="+token,
 			method:"POST",
 			jsonData : {
-					user_id : user_id
+				 judge_point : {
+					user_id : uid,
+					challenge_id : cid,
+					points: points
+				}
 			},
 			success:function(res){
 				console.log(res);

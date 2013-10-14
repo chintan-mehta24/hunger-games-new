@@ -146,6 +146,10 @@ Ext.define('HungerApp.view.Home', {
 				itemId: 'idMiniChallenge',
 			},
 			{
+				xtype: 'ActionSheetViewChallenge',
+				itemId: 'idActionSheetViewChallenge',
+			},
+			{
 				xtype: 'footer',
 				docked: 'bottom'
 			}

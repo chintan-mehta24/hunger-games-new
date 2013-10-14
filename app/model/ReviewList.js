@@ -10,7 +10,10 @@ Ext.define('HungerApp.model.ReviewList', {
             {name: 'avatar_url', type: 'stirng'},
             {name: 'make_public', type: 'string'},
             {name: 'judge_can_view', type: 'string'},
-            {name: 'date_submitted', type: 'string'}
+            {name: 'date_submitted', type: 'string'},
+            {name: 'name', type: 'string'},
+            {name: 'email', type: 'string'},
+            {name: 'last_name', type: 'string'}
         ],
     }
 });

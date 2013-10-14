@@ -15,7 +15,8 @@ Ext.define('HungerApp.model.MainActvityFeed', {
 			"badge",
 			"profile_image",
 			"liked_by",
-			"feed_comments"
+			"feed_comments",
+			"status"
         ]
     }
 });
