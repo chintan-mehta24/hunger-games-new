@@ -9,7 +9,8 @@ Ext.define('HungerApp.model.GetUserData', {
             {name: 'created_at', type: 'string'},
             {name: 'avatar_url', type: 'stirng'},
             {name: 'user_first_name', type: 'string'},
-            {name: 'user_last_name', type: 'string'}
+            {name: 'endorsement_name', type: 'auto'},
+            {name: 'endorsement_image', type: 'auto'}
 
 /*            {name: 'name', type: 'string'},
             {name: 'email', type: 'string'},

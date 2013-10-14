@@ -1,6 +1,6 @@
-var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url({avatar_url});"></div>',
+var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url({endorsement_image});"></div>',
 							'<div class="endorsPlayer">',
-								'<div class="title">{user_first_name} {user_last_name}<span>{created_at:this.setMyDate}</span></div>',
+								'<div class="title">{endorsement_name}<span>{created_at:this.setMyDate}</span></div>',
 								'<div class="message">{message}</div>',
 							'</div>',{
 										// XTemplate configuration:

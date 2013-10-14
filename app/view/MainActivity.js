@@ -140,7 +140,7 @@ Ext.define('HungerApp.view.MainActivity', {
 				// }
 			});	
 			msgBox.down('#commentField').on('action',function(ths){
-				this.hide();
+				msgBox.hide();
 				me.doComment(record,ths.getValue());
 			});
 			return true;
