@@ -208,7 +208,7 @@ Ext.define('HungerApp.view.MainActivity', {
 			method:"POST",
 			jsonData : {
 				auth_token: auth_token,
-				like_or_dislike: like,
+				like_or_dislike: like ? "true" : "false",
 				activity_feed_id: record.get('activity_id')
 			},
 			success:function(res){

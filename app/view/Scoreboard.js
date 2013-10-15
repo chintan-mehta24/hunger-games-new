@@ -16,12 +16,12 @@ Ext.define('HungerApp.view.Scoreboard', {
 					'</div>'+
 				'</div>'+
 				'<div class="scorecard-detail">'+
-					'<div class="likes">{likes}</div>'+
-					'<div class="social">{social_media_point}</div>'+
+					'<div class="likes">{like_and_dislike_point}</div>'+
+					'<div class="social">{login_point}</div>'+
 					'<div class="support">{support_point}</div>'+
-					'<div class="challenges">{minichallenge_point}</div>'+
+					'<div class="challenges">{challenges_point}</div>'+
 					//'<div class="challenge">{challenges_point}</div>'+
-					'<div class="comments">{login_point}</div>'+
+					'<div class="comments">{minichallenge_point}</div>'+
 				'</div>',
 		emptyText: 'No items',
 		store : 'ScoreBoard'
