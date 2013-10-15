@@ -180,9 +180,42 @@ Ext.define('HungerApp.view.UserProfile', {
 		var homeview = Ext.Viewport.down('homeview');
 		homeview.animateActiveItem('#idUserPledgeCharity',{type:'slide',direction: 'left'});
 	},
- 	doSupportPlayer: function(){
-		var homeview = Ext.Viewport.down('homeview');
-		homeview.animateActiveItem('#idSupportPlayer',{type:'slide',direction: 'left'});
+ 	doSupportPlayer: function(){	
+				var userRecord = this.getConfig('userRecord'),
+				uid = userRecord.user_id;
+
+		Ext.Msg.confirm("Confirm","Do you want to support "+userRecord.name,function(btn,data){
+			if(btn == "yes"){
+
+
+				var currentUserProfile = Ext.getStore('Profile'),
+					currentUser = currentUserProfile.getAt(0),
+					currentUser_id = currentUser.get('user_id');
+
+				Ext.Ajax.request({
+					url:applink+"api/users/support_to_player",
+					method:"POST",
+					jsonData : {
+						auth_token : currentUser.get('auth_token'),
+						support : uid
+					},
+					success:function(res){
+						var resData = Ext.decode(res.responseText);
+						if(resData.errors){
+							Ext.Msg.alert("Error",resData.errors);
+							return;
+						}
+						currentUser.set('support',true);
+						Ext.Msg.alert("",resData.message);
+					},
+					failure:function(res){
+						Ext.Msg.alert("Error","Status Code: " + res.status);
+					}
+				});	
+			}
+		});
+		//var homeview = Ext.Viewport.down('homeview');
+		//homeview.animateActiveItem('#idSupportPlayer',{type:'slide',direction: 'left'});
 	},
 	endorseSkill: function(ths,indx,target,record){
 		console.log(ths,indx,record);
