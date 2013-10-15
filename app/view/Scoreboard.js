@@ -19,9 +19,9 @@ Ext.define('HungerApp.view.Scoreboard', {
 					'<div class="likes">{likes}</div>'+
 					'<div class="social">{social_media_point}</div>'+
 					'<div class="support">{support_point}</div>'+
-					'<div class="mini-challenge">{minichallenge_point}</div>'+
-					'<div class="challenge">{challenges_point}</div>'+
-					'<div class="login">{login_point}</div>'+
+					'<div class="challenges">{minichallenge_point}</div>'+
+					//'<div class="challenge">{challenges_point}</div>'+
+					'<div class="comments">{login_point}</div>'+
 				'</div>',
 		emptyText: 'No items',
 		store : 'ScoreBoard'

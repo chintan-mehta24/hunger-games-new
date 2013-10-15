@@ -440,10 +440,31 @@ html,  body{
 			.scorecard-detail{
 				min-height: 4em;
 				@include st-box();
-				@include st-box-orient(vertical);
+				@include st-box-orient(horizontal);
 				@include st-box-pack(justify);
+				padding-top: 0.5em;
 				> div {
 					@include st-box-flex(1);
+					background-size: 1.75em;
+					background-repeat: no-repeat;
+					background-position: top center;
+					color: #EE7223;
+					text-align: center;
+				}
+				.likes{
+					background-image:url(../images/scorecard/like.png);
+				}
+				.social{
+					background-image:url(../images/scorecard/social.png);
+				}
+				.support{
+					background-image:url(../images/scorecard/support.png);
+				}
+				.challenges{
+					background-image:url(../images/scorecard/challenge.png);
+				}
+				.comments{
+					background-image:url(../images/scorecard/comments.png);
 				}
 			}
 		}
