@@ -90,13 +90,15 @@ Ext.application({
     controllers: ['Home'],
 
 
-/*     icon: {
-        '57': 'resources/icons/Icon.png',
-        '72': 'resources/icons/Icon~ipad.png',
-        '114': 'resources/icons/Icon@2x.png',
-        '144': 'resources/icons/Icon~ipad@2x.png'
+     icon: {
+        '50': 'resources/icons/50.png',
+        '57': 'resources/icons/57.png',
+        '72': 'resources/icons/72.png',
+        '100': 'resources/icons/100.png',
+        '114': 'resources/icons/114.png',
+        '144': 'resources/icons/144.png'
     },
-    isIconPrecomposed: true,
+    isIconPrecomposed: false,
     startupImage: {
         '320x460': 'resources/startup/320x460.jpg',
         '640x920': 'resources/startup/640x920.png',
@@ -105,7 +107,7 @@ Ext.application({
         '1536x2008': 'resources/startup/1536x2008.png',
         '1496x2048': 'resources/startup/1496x2048.png'
     },
- */
+
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
