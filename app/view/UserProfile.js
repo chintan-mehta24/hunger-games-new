@@ -147,7 +147,6 @@ Ext.define('HungerApp.view.UserProfile', {
 				items:[{
 					xtype: 'label',
 					scrollDocked: 'top',
-					//docked: 'top',
 					cls   : 'formExtraLableCls',
 					html: 'Challenges Completed: '
 				}]

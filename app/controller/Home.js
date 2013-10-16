@@ -308,7 +308,13 @@ Ext.define('HungerApp.controller.Home', {
 				var challenges_Dataview = profileForm.down('#recent_challenges'),
 					challenges_store = challenges_Dataview.getStore();
 				challenges_store.clearData();
-				challenges_store.add(data.player_challenges);
+				if(data.status == "player"){
+					challenges_store.add(data.player_challenges);
+					challenges_Dataview.show();
+				}
+				else{
+					challenges_Dataview.hide();
+				}
 				profileForm.down('#avatar_url').setSrc(data.avatar_url);
 				homeview.animateActiveItem('#formUserProfile',{type:'slide',direction:'left',duration:200});
 				

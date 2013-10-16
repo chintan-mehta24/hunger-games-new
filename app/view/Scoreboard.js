@@ -4,7 +4,7 @@ Ext.define('HungerApp.view.Scoreboard', {
 	config: {
 		cls : 'scoreboardListCls',
 		itemCls : 'scoreboardListItem',
-		itemTpl: '<div class="scorecard-user">'+
+		itemTpl: new Ext.XTemplate('<div class="scorecard-user">'+
 					'<div class="thumb" style="background-image:url({avatar_url});"></div>'+
 					'<div class="badge" style="background-image:url(resources/images/{status}.png);"></div>'+
 					'<div class="detail">{username}</div>'+
@@ -17,12 +17,16 @@ Ext.define('HungerApp.view.Scoreboard', {
 				'</div>'+
 				'<div class="scorecard-detail">'+
 					'<div class="likes">{like_and_dislike_point}</div>'+
-					'<div class="social">{login_point}</div>'+
+					'<div class="social">{feed_comment_point}</div>'+
 					'<div class="support">{support_point}</div>'+
 					'<div class="challenges">{challenges_point}</div>'+
-					//'<div class="challenge">{challenges_point}</div>'+
-					'<div class="comments">{minichallenge_point}</div>'+
-				'</div>',
+					//'<div class="challenge">{minichallenge_point}</div>'+
+					'<div class="comments">{login_point:this.add(values)}</div>'+
+				'</div>',{
+					add:function(v1,v2){
+						return v1 + v2.minichallenge_point;
+					}
+				}),
 		emptyText: 'No items',
 		store : 'ScoreBoard'
 	}

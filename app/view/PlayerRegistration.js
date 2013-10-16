@@ -161,15 +161,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				name: 'md_id',
 				placeHolder : 'MD/Sponsor',
 				store : 'MDList',
-			/*	options: [
-					{text: 'MD - 1',  value: 'Solera Corportate'},
-					{text: 'MD - 2', value: 'Audatex'},
-					{text: 'MD - 3',  value: 'ABZ'},
-					{text: 'MD - 4',  value: 'AudaExplore'},
-					{text: 'MD - 5', value: 'AUTOonline'},
-					{text: 'MD - 6',  value: 'Hollander'},
-					{text: 'MD - 7',  value: 'HPI'}
-				],*/
+				usePicker: true,
 				autoSelect : false,
 				displayField:'fullname',
 				valueField : 'mdid'

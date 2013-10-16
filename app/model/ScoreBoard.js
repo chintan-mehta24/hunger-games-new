@@ -13,7 +13,8 @@ Ext.define('HungerApp.model.ScoreBoard', {
             {name: 'login_point', type: 'number'},
             {name: 'support_point', type: 'number'},
             {name: 'challenges_point', type: 'number'},
-            {name: 'minichallenge_point', type: 'number'}
+            {name: 'minichallenge_point', type: 'number'},
+			{name: 'feed_comment_point', type: 'number'}
         ],
     }
 });

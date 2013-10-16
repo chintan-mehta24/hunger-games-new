@@ -4,7 +4,6 @@ Ext.define('HungerApp.view.FeaturedVideo', {
 	config: {
 		backForm: null,
 		layout: 'vbox',
-		padding: '1em',
 		items : [
 			{
 				docked: 'top',
