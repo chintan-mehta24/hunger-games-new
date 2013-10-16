@@ -35,7 +35,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 			},
 			{
 				xtype : 'label',
-				html  : 'Wellcome Message',
+				html  : 'Welcome Message',
 				cls: 'welcomeMsgCls'
 			},
 			{
@@ -108,7 +108,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 						name : 'sex',
 //						flex: 1,
 						value: 'Male',
-						label: 'Male:',
+						label: 'Male',
 						itemId: 'checkBoxMale',
 						checked: true
 					},
@@ -118,7 +118,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 //						flex: 1,
 						value: 'Female',
 						itemId: 'checkBoxFemale',
-						label: 'Female:'
+						label: 'Female'
 					}
 				]
 			},

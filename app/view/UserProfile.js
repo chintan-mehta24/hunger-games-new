@@ -1,6 +1,6 @@
-var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url({endorsement_image});"></div>',
+var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url({avatar_url});"></div>',
 							'<div class="endorsPlayer">',
-								'<div class="title">{endorsement_name}<span>{created_at:this.setMyDate}</span></div>',
+								'<div class="title">{user_first_name} {user_last_name}<span>{created_at:this.setMyDate}</span></div>',
 								'<div class="message">{message}</div>',
 							'</div>',{
 										// XTemplate configuration:
@@ -98,6 +98,7 @@ Ext.define('HungerApp.view.UserProfile', {
 			{
 				xtype: 'dataview',
 				name: 'skills',
+				emptyText: 'No skills available',
 				cls: 'skillDataviewCls',
 				itemCls: 'profileSkills',
 				itemId: 'userSkills',
@@ -111,25 +112,14 @@ Ext.define('HungerApp.view.UserProfile', {
 				items:[{
 					xtype: 'label',
 					scrollDocked: 'top',
-					//docked: 'top',
 					cls   : 'formExtraLableCls',
 					html: 'Skill set: '
 				}]
 			},
-/* 			{
-				xtype : 'component',
-				tpl  : [	'<div>Skill sets</div>',
-							'<tpl for="skills">',
-								'<span class="cls-skill-item"> {.} </span>',
-							'</tpl>'].join(''),
-				data: {
-					skills: ["skill_1","skill_2","skill_3","skill_4","skill_5","skill_6"]
-				},
-				cls   : 'formExtraLableCls',
-			}, */
 			{
 				xtype : 'dataview',
 				scrollable : null,
+				emptyText: 'No activity available',
 				itemId : 'recent_activity',
 				cls: 'clsEndorsmentDataview',
 				style : 'color : white;',
@@ -141,6 +131,7 @@ Ext.define('HungerApp.view.UserProfile', {
 				scrollable : null,
 				itemId : 'recent_challenges',
 				cls: 'clsEndorsmentDataview',
+				emptyText: 'No challenges available posted',
 				style : 'color : white;',
 				itemTpl: new Ext.XTemplate('<div class="endorsPlayer">',
 							'<div class="title">{title}<span>{created_at:this.setMyDate}</span></div>',

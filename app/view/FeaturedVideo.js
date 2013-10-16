@@ -10,10 +10,12 @@ Ext.define('HungerApp.view.FeaturedVideo', {
 				docked: 'top',
 				xtype: 'titlebar',
 				title: 'Featured Video',
+				cls: 'topBarLoginCls',
 				ui: 'plain',
 				items:[{
 					xtype: 'button',
-					ui: 'back',
+					ui: 'plain',
+					icon: 'resources/images/left_arrow.png',
 					text: 'Back',
 					itemId: 'btnBack'
 				}]

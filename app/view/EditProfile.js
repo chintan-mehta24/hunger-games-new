@@ -21,7 +21,7 @@ Ext.define('HungerApp.view.EditProfile', {
 			{
 				xtype : 'label',
 				cls: 'welcomeMsgCls',
-				html  : 'Wellcome message'
+				html  : 'Welcome message'
 			},
 			{
 				xtype: 'textfield',

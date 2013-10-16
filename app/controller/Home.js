@@ -292,7 +292,6 @@ Ext.define('HungerApp.controller.Home', {
 				var store = Ext.getStore('GetUserData');
 				store.clearData();
 				store.add(data.recent_activities);
-				
 				var skillDataview = profileForm.down('#userSkills'),
 					skillStore = skillDataview.getStore();
 				if(skillStore){
