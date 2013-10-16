@@ -79,6 +79,11 @@ html,  body{
 			}
 		}
 	} 
+	.x-field-radio{
+		.x-component-outer{
+			@include st-box-flex(initial);
+		}
+	} 
 	.x-field-select .x-component-outer:after{
 		background-color: #EE7223;
 	}

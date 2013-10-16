@@ -1,4 +1,4 @@
-var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url({avatar_url});"></div>',
+var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url(\'{avatar_url}\');"></div>',
 							'<div class="endorsPlayer">',
 								'<div class="title">{user_first_name} {user_last_name}<span>{created_at:this.setMyDate}</span></div>',
 								'<div class="message">{message}</div>',
@@ -119,16 +119,6 @@ Ext.define('HungerApp.view.UserProfile', {
 			{
 				xtype : 'dataview',
 				scrollable : null,
-				emptyText: 'No activity available',
-				itemId : 'recent_activity',
-				cls: 'clsEndorsmentDataview',
-				style : 'color : white;',
-				itemTpl: tp,
-				store : 'GetUserData'
-			},
-			{
-				xtype : 'dataview',
-				scrollable : null,
 				itemId : 'recent_challenges',
 				cls: 'clsEndorsmentDataview',
 				emptyText: 'No challenges available posted',
@@ -150,6 +140,16 @@ Ext.define('HungerApp.view.UserProfile', {
 					cls   : 'formExtraLableCls',
 					html: 'Challenges Completed: '
 				}]
+			},
+			{
+				xtype : 'dataview',
+				scrollable : null,
+				emptyText: 'No activity available',
+				itemId : 'recent_activity',
+				cls: 'clsEndorsmentDataview',
+				style : 'color : white;',
+				itemTpl: tp,
+				store : 'GetUserData'
 			}
 		],
 		listeners : [ {

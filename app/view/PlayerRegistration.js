@@ -103,6 +103,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 					labelAlign: 'right'
 				},
 				items: [
+					{	xtype: 'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
@@ -112,6 +113,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 						itemId: 'checkBoxMale',
 						checked: true
 					},
+					{	xtype: 'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
@@ -119,7 +121,8 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 						value: 'Female',
 						itemId: 'checkBoxFemale',
 						label: 'Female'
-					}
+					},
+					{	xtype: 'spacer'}
 				]
 			},
 			{
