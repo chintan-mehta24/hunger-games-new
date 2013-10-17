@@ -83913,7 +83913,7 @@ Ext.define("HungerApp.view.Fileup", {
 		 accept:"image/*",
 //capture=camera"
          hidden: false,
-         style: "opacity:0;position:absolute;top:0px;right:0px;bottom:0px;left:0px;z-index:3;"
+         style: "opacity:0;position:absolute;top:0px;right:0px;bottom:0px;left:0px;z-index:3;width:100%"
       }]
    }],
    defaultStates: {
