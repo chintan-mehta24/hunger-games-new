@@ -46,7 +46,7 @@ Ext.define("HungerApp.view.Fileup", {
 		 accept:"image/*",
 //capture=camera"
          hidden: false,
-         style: "opacity:0;position:absolute;top:-3px;right:-3px;bottom:-3px;left:-3px;z-index:16777270;"
+         style: "opacity:0;position:absolute;top:0px;right:0px;bottom:0px;left:0px;z-index:3;"
       }]
    }],
    defaultStates: {
@@ -225,7 +225,8 @@ Ext.define("HungerApp.view.Fileup", {
 					if (f && f.errors) {
 						d.fireEvent("failure", f.message, f, this, g)
 					} else {
-						d.fireEvent("success", f, this, g)
+						d.fireEvent("success", f, this, g);
+						d.reset();
 					}
                } else {
                   d.fireEvent("failure", this.status + " " + this.statusText, f, this, g)

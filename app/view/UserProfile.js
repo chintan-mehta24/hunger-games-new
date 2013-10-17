@@ -64,7 +64,7 @@ Ext.define('HungerApp.view.UserProfile', {
 							{
 								xtype : 'label',
 								cls: 'clsPlayerTitle sponser',
-								itemId : 'status',
+								itemId : 'md_name',
 								//html : "MD / Sponsor",
 							},
 							{
@@ -92,7 +92,6 @@ Ext.define('HungerApp.view.UserProfile', {
 			{
 				xtype : 'component',
 				itemId: 'bio',
-				//html  : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non mauris semper turpis convallis consectetur in sollicitudin massa. Nam sed lorem arcu. ',
 				cls   : 'formExtraLableCls',
 			},
 			{
@@ -121,7 +120,7 @@ Ext.define('HungerApp.view.UserProfile', {
 				scrollable : null,
 				itemId : 'recent_challenges',
 				cls: 'clsEndorsmentDataview',
-				emptyText: 'No challenges available posted',
+				emptyText: 'No challenges available',
 				style : 'color : white;',
 				itemTpl: new Ext.XTemplate('<div class="endorsPlayer">',
 							'<div class="title">{title}<span>{created_at:this.setMyDate}</span></div>',
@@ -132,7 +131,8 @@ Ext.define('HungerApp.view.UserProfile', {
 							}
 						}),
 				store : {
-					fields:["description","title","created_at"]
+					fields:["description","title","created_at"],
+					data:[]
 				},
 				items:[{
 					xtype: 'label',
@@ -149,7 +149,13 @@ Ext.define('HungerApp.view.UserProfile', {
 				cls: 'clsEndorsmentDataview',
 				style : 'color : white;',
 				itemTpl: tp,
-				store : 'GetUserData'
+				store : 'GetUserData',
+				items:[{
+					xtype: 'label',
+					scrollDocked: 'top',
+					cls   : 'formExtraLableCls',
+					html: 'Recent Activity: '
+				}]
 			}
 		],
 		listeners : [ {

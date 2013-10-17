@@ -58,7 +58,8 @@ Ext.application({
 		'ActionSheetUploadImage',
 		'Fileup',
 		'JudgeChallenge',
-		'MiniChallenge'
+		'MiniChallenge',
+		'ImageViewer'
     ],
 	
     models: [

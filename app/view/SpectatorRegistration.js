@@ -79,23 +79,26 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 					labelAlign: 'right'
 				},
 				items: [
+					{	xtype: 'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+						// flex: 1,
 						value: 'Male',
-						label: 'Male:',
+						label: 'Male',
 						itemId: 'checkBoxMale',
 						checked: true
 					},
+					{	xtype: 'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+						// flex: 1,
 						value: 'Female',
 						itemId: 'checkBoxFemale',
 						label: 'Female:'
-					}
+					},
+					{	xtype: 'spacer'}
 				]
 			},
 			{
@@ -105,7 +108,7 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 				name: 'company',
 				placeHolder : 'District',
 				options: [
-					{text: 'Solera Corportate',  value: 'Solera Corportate'},
+					{text: 'Solera Corporate',  value: 'Solera Corporate'},
 					{text: 'Audatex', value: 'Audatex'},
 					{text: 'ABZ',  value: 'ABZ'},
 					{text: 'AudaExplore',  value: 'AudaExplore'},
@@ -119,7 +122,7 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 				],
 				//userPicker : false,
 				//labelWidth	: 'initial',
-				autoSelect : false,
+				// autoSelect : false,
 				displayField:'text'				
 			},
 			// {

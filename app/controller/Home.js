@@ -111,8 +111,9 @@ Ext.define('HungerApp.controller.Home', {
 					me.getPlayerReq(userStore.getAt(0).data.auth_token);
 					return;
 				}
-				//console.log(userStore);
 				var homeview = Ext.Viewport.down('homeview');
+				var loginForm = homeview.down('#formPanelLogin');
+				loginForm.reset();
 				homeview.down('#mainNavigationTopbar').setHidden(false);
 				homeview.animateActiveItem('#idListMainFeed',{type:'slide',direction: 'left'});
 			},
@@ -168,6 +169,8 @@ Ext.define('HungerApp.controller.Home', {
 				userStore.add(resData.user);
 				
 				var homeview = Ext.Viewport.down('homeview');
+				var spectatorView = homeview.down('#formPanelSpectatorRegistration');
+				spectatorView.reset();
 				var avatarView = homeview.down('#idAvatarSelection');
 				avatarView.setBackForm(backRef.getItemId());
 				homeview.animateActiveItem(avatarView,{type:'slide',direction: 'left'});
@@ -201,6 +204,10 @@ Ext.define('HungerApp.controller.Home', {
 				userStore.add(resData.user);
 				
 				var homeview = Ext.Viewport.down('homeview');
+				var playerView = homeview.down('#formPanelPlayerRegistration');
+				playerView.reset();
+				var dataview = playerView.down('dataview[name=skills]');
+				dataview.select([]);
 				var avatarView = homeview.down('#idAvatarSelection');
 				avatarView.setBackForm(backRef.getItemId());
 				homeview.animateActiveItem(avatarView,{type:'slide',direction: 'left'});
@@ -273,7 +280,7 @@ Ext.define('HungerApp.controller.Home', {
 				});
 				profileForm.down('#name').setHtml(data.name+" "+data.last_name);
 				profileForm.down('#company').setHtml(data.company);
-				profileForm.down('#status').setHtml(data.status);
+				profileForm.down('#md_name').setHtml(data.md_name);
 				profileForm.down('#bio').setHtml(data.bio);
 				
 				if(!isMyProfile){
@@ -291,7 +298,8 @@ Ext.define('HungerApp.controller.Home', {
 				var recentActivity = profileForm.down('#recent_activity');
 				var store = Ext.getStore('GetUserData');
 				store.clearData();
-				store.add(data.recent_activities);
+				if(data.recent_activities && data.recent_activities.length > 0)
+					store.add(data.recent_activities);
 				var skillDataview = profileForm.down('#userSkills'),
 					skillStore = skillDataview.getStore();
 				if(skillStore){

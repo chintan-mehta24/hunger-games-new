@@ -133,11 +133,6 @@ Ext.define('HungerApp.view.MainActivity', {
 					me.doComment(record,value);
 			},me,null,null,{
 				itemId: "commentField"
-				// listeners:{
-					// action: function(){
-						// console.log("actions")
-					// }
-				// }
 			});	
 			msgBox.down('#commentField').on('action',function(ths){
 				msgBox.hide();
@@ -150,6 +145,23 @@ Ext.define('HungerApp.view.MainActivity', {
 			target.addCls("show-comment");
 			return true;
 		}
+		if(e.getTarget('.poster')){
+			Ext.Viewport.add({
+				xtype: 'imageviewer',
+				imageSrc: record.get('avatar_image'),
+				items: [{
+					xtype: 'titlebar',
+					docked: 'top',
+					items:[{
+						xtype: 'button',
+						ui: 'plain',
+						align: 'right',
+						iconCls: 'delete'
+					}]
+				}]
+			}).show();
+		}
+		// imageSrc
 	},
 	loadMainActivityList: function(){
 		var store = Ext.getStore('MainActvityFeed'),

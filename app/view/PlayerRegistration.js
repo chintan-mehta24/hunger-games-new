@@ -132,7 +132,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				name: 'company',
 				placeHolder : 'District',
 				options: [
-					{text: 'Solera Corportate',  value: 'Solera Corportate'},
+					{text: 'Solera Corporate',  value: 'Solera Corporate'},
 					{text: 'Audatex', value: 'Audatex'},
 					{text: 'ABZ',  value: 'ABZ'},
 					{text: 'AudaExplore',  value: 'AudaExplore'},
@@ -146,7 +146,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				],
 				//userPicker : false,
 				//labelWidth	: 'initial',
-				autoSelect : false,
+				// autoSelect : false,
 				displayField:'text'				
 			},
 /* 			{

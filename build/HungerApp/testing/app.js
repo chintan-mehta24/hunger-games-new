@@ -83369,23 +83369,26 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 					labelAlign: 'right'
 				},
 				items: [
+					{	xtype: 'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+						// flex: 1,
 						value: 'Male',
-						label: 'Male:',
+						label: 'Male',
 						itemId: 'checkBoxMale',
 						checked: true
 					},
+					{	xtype: 'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+						// flex: 1,
 						value: 'Female',
 						itemId: 'checkBoxFemale',
 						label: 'Female:'
-					}
+					},
+					{	xtype: 'spacer'}
 				]
 			},
 			{
@@ -83395,7 +83398,7 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 				name: 'company',
 				placeHolder : 'District',
 				options: [
-					{text: 'Solera Corportate',  value: 'Solera Corportate'},
+					{text: 'Solera Corporate',  value: 'Solera Corporate'},
 					{text: 'Audatex', value: 'Audatex'},
 					{text: 'ABZ',  value: 'ABZ'},
 					{text: 'AudaExplore',  value: 'AudaExplore'},
@@ -83409,7 +83412,7 @@ Ext.define('HungerApp.view.SpectatorRegistration', {
 				],
 				//userPicker : false,
 				//labelWidth	: 'initial',
-				autoSelect : false,
+				// autoSelect : false,
 				displayField:'text'				
 			},
 			// {
@@ -83682,7 +83685,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				name: 'company',
 				placeHolder : 'District',
 				options: [
-					{text: 'Solera Corportate',  value: 'Solera Corportate'},
+					{text: 'Solera Corporate',  value: 'Solera Corporate'},
 					{text: 'Audatex', value: 'Audatex'},
 					{text: 'ABZ',  value: 'ABZ'},
 					{text: 'AudaExplore',  value: 'AudaExplore'},
@@ -83696,7 +83699,7 @@ Ext.define('HungerApp.view.PlayerRegistration', {
 				],
 				//userPicker : false,
 				//labelWidth	: 'initial',
-				autoSelect : false,
+				// autoSelect : false,
 				displayField:'text'				
 			},
 /* 			{
@@ -83910,7 +83913,7 @@ Ext.define("HungerApp.view.Fileup", {
 		 accept:"image/*",
 //capture=camera"
          hidden: false,
-         style: "opacity:0;position:absolute;top:-3px;right:-3px;bottom:-3px;left:-3px;z-index:16777270;"
+         style: "opacity:0;position:absolute;top:0px;right:0px;bottom:0px;left:0px;z-index:3;"
       }]
    }],
    defaultStates: {
@@ -84089,7 +84092,8 @@ Ext.define("HungerApp.view.Fileup", {
 					if (f && f.errors) {
 						d.fireEvent("failure", f.message, f, this, g)
 					} else {
-						d.fireEvent("success", f, this, g)
+						d.fireEvent("success", f, this, g);
+						d.reset();
 					}
                } else {
                   d.fireEvent("failure", this.status + " " + this.statusText, f, this, g)
@@ -84395,6 +84399,9 @@ Ext.define('HungerApp.view.AvatarSelector', {
 		this.getParent().animateActiveItem('#idListMainFeed',{type:'slide',direction:'left',duration:200});
 		var homeview = Ext.Viewport.down('homeview');
 		homeview.down('#mainNavigationTopbar').setHidden(false);
+		var me = this,
+			component = me.down('#imagePreview');
+		component.setSrc(null);
 	},
 	onAvatarUploadFailure:function(a,b,c){
 		Ext.Viewport.setMasked(false);
@@ -84537,11 +84544,6 @@ Ext.define('HungerApp.view.MainActivity', {
 					me.doComment(record,value);
 			},me,null,null,{
 				itemId: "commentField"
-				// listeners:{
-					// action: function(){
-						// console.log("actions")
-					// }
-				// }
 			});	
 			msgBox.down('#commentField').on('action',function(ths){
 				msgBox.hide();
@@ -84554,6 +84556,23 @@ Ext.define('HungerApp.view.MainActivity', {
 			target.addCls("show-comment");
 			return true;
 		}
+		if(e.getTarget('.poster')){
+			Ext.Viewport.add({
+				xtype: 'imageviewer',
+				imageSrc: record.get('avatar_image'),
+				items: [{
+					xtype: 'titlebar',
+					docked: 'top',
+					items:[{
+						xtype: 'button',
+						ui: 'plain',
+						align: 'right',
+						iconCls: 'delete'
+					}]
+				}]
+			}).show();
+		}
+		// imageSrc
 	},
 	loadMainActivityList: function(){
 		var store = Ext.getStore('MainActvityFeed'),
@@ -84768,7 +84787,7 @@ Ext.define('HungerApp.view.UserProfile', {
 							{
 								xtype : 'label',
 								cls: 'clsPlayerTitle sponser',
-								itemId : 'status',
+								itemId : 'md_name',
 								//html : "MD / Sponsor",
 							},
 							{
@@ -84796,7 +84815,6 @@ Ext.define('HungerApp.view.UserProfile', {
 			{
 				xtype : 'component',
 				itemId: 'bio',
-				//html  : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non mauris semper turpis convallis consectetur in sollicitudin massa. Nam sed lorem arcu. ',
 				cls   : 'formExtraLableCls',
 			},
 			{
@@ -84825,7 +84843,7 @@ Ext.define('HungerApp.view.UserProfile', {
 				scrollable : null,
 				itemId : 'recent_challenges',
 				cls: 'clsEndorsmentDataview',
-				emptyText: 'No challenges available posted',
+				emptyText: 'No challenges available',
 				style : 'color : white;',
 				itemTpl: new Ext.XTemplate('<div class="endorsPlayer">',
 							'<div class="title">{title}<span>{created_at:this.setMyDate}</span></div>',
@@ -84836,7 +84854,8 @@ Ext.define('HungerApp.view.UserProfile', {
 							}
 						}),
 				store : {
-					fields:["description","title","created_at"]
+					fields:["description","title","created_at"],
+					data:[]
 				},
 				items:[{
 					xtype: 'label',
@@ -84853,7 +84872,13 @@ Ext.define('HungerApp.view.UserProfile', {
 				cls: 'clsEndorsmentDataview',
 				style : 'color : white;',
 				itemTpl: tp,
-				store : 'GetUserData'
+				store : 'GetUserData',
+				items:[{
+					xtype: 'label',
+					scrollDocked: 'top',
+					cls   : 'formExtraLableCls',
+					html: 'Recent Activity: '
+				}]
 			}
 		],
 		listeners : [ {
@@ -85270,7 +85295,7 @@ Ext.define('HungerApp.view.EditProfile', {
 				placeHolder : 'District',
 				itemId : 'destrict',
 				options: [
-					{text: 'Solera Corportate',  value: 'Solera Corportate'},
+					{text: 'Solera Corporate',  value: 'Solera Corporate'},
 					{text: 'Audatex', value: 'Audatex'},
 					{text: 'ABZ',  value: 'ABZ'},
 					{text: 'AudaExplore',  value: 'AudaExplore'},
@@ -85284,7 +85309,7 @@ Ext.define('HungerApp.view.EditProfile', {
 				],
 				//userPicker : false,
 				//labelWidth	: 'initial',
-				autoSelect : false,
+				// autoSelect : false,
 				displayField:'text'				
 			},
 			{
@@ -85492,7 +85517,7 @@ Ext.define('HungerApp.view.UserChallenge', {
 			VideoBTN.on('loadsuccess',this.postToFeed,this);
 			VideoBTN.on('success',this.onSuccesfullyPosted,this);
 			VideoBTN.on('failure',this.onFailurePosted,this);
-			VideoBTN.fileElement.dom.accept = "video/*";
+			VideoBTN.fileElement.dom.accept = "video/mp4";
 
 			var imageBTN = msgbox.down('fileupload[itemId=image]');
 			imageBTN.on('loadsuccess',this.postToFeedImage,this);
@@ -86073,7 +86098,7 @@ Ext.define('HungerApp.view.MiniChallenge', {
 					auth_token: auth_token,
 					mini_challenge:{
 						mini_challenge_id: record.get('id'),
-						option: answer[0]
+						option: answer[0].option
 					}
 				},
 				success:function(res){
@@ -86688,8 +86713,9 @@ Ext.define('HungerApp.controller.Home', {
 					me.getPlayerReq(userStore.getAt(0).data.auth_token);
 					return;
 				}
-				//console.log(userStore);
 				var homeview = Ext.Viewport.down('homeview');
+				var loginForm = homeview.down('#formPanelLogin');
+				loginForm.reset();
 				homeview.down('#mainNavigationTopbar').setHidden(false);
 				homeview.animateActiveItem('#idListMainFeed',{type:'slide',direction: 'left'});
 			},
@@ -86745,6 +86771,8 @@ Ext.define('HungerApp.controller.Home', {
 				userStore.add(resData.user);
 				
 				var homeview = Ext.Viewport.down('homeview');
+				var spectatorView = homeview.down('#formPanelSpectatorRegistration');
+				spectatorView.reset();
 				var avatarView = homeview.down('#idAvatarSelection');
 				avatarView.setBackForm(backRef.getItemId());
 				homeview.animateActiveItem(avatarView,{type:'slide',direction: 'left'});
@@ -86778,6 +86806,10 @@ Ext.define('HungerApp.controller.Home', {
 				userStore.add(resData.user);
 				
 				var homeview = Ext.Viewport.down('homeview');
+				var playerView = homeview.down('#formPanelPlayerRegistration');
+				playerView.reset();
+				var dataview = playerView.down('dataview[name=skills]');
+				dataview.select([]);
 				var avatarView = homeview.down('#idAvatarSelection');
 				avatarView.setBackForm(backRef.getItemId());
 				homeview.animateActiveItem(avatarView,{type:'slide',direction: 'left'});
@@ -86850,7 +86882,7 @@ Ext.define('HungerApp.controller.Home', {
 				});
 				profileForm.down('#name').setHtml(data.name+" "+data.last_name);
 				profileForm.down('#company').setHtml(data.company);
-				profileForm.down('#status').setHtml(data.status);
+				profileForm.down('#md_name').setHtml(data.md_name);
 				profileForm.down('#bio').setHtml(data.bio);
 				
 				if(!isMyProfile){
@@ -86868,7 +86900,8 @@ Ext.define('HungerApp.controller.Home', {
 				var recentActivity = profileForm.down('#recent_activity');
 				var store = Ext.getStore('GetUserData');
 				store.clearData();
-				store.add(data.recent_activities);
+				if(data.recent_activities && data.recent_activities.length > 0)
+					store.add(data.recent_activities);
 				var skillDataview = profileForm.down('#userSkills'),
 					skillStore = skillDataview.getStore();
 				if(skillStore){
@@ -87446,6 +87479,300 @@ Ext.define('HungerApp.store.PlayerList', {
 	}
 });
 
+Ext.define("HungerApp.view.ImageViewer",{
+	extend: Ext.Container ,
+	config:{
+		doubleTapScale:1,
+		maxScale:4,
+		loadingMask:true,
+		previewSrc:false,
+		resizeOnLoad:true,
+		imageSrc:false,
+		initOnActivate:false,
+		cls:"imageBox",
+		scrollable:"both",
+		style: 'background:black',
+		zIndex: 8,
+		html:"<figure><img></figure>"
+	},
+	xtype:"imageviewer",
+	initialize:function(){
+		if(this.initOnActivate){
+			this.addListener("activate",
+							this.initViewer,
+							this,
+							{	delay:10,single:true}
+			);
+		}
+		else{
+			this.addListener("painted",
+							this.initViewer,
+							this,
+							{delay:10,single:true}
+			);
+			
+		}
+	},
+	initViewer:function(){
+		var a=this.getScrollable().getScroller();
+		a.setDisabled(true);
+		if(this.getLoadingMask()){
+			this.setMasked({
+					xtype:"loadmask",
+			});
+		}
+		this.figEl=this.element.down("figure");
+		this.imgEl=this.figEl.down("img");
+		this.figEl.setStyle({
+				overflow:"hidden",
+				display:"block",
+				margin:0,
+				});
+		this.imgEl.setStyle({
+					"-webkit-user-drag":"none",
+					"-webkit-transform-origin":"0 0",
+					visibility:"hidden"
+		});
+		if(this.getPreviewSrc()){
+			this.element.setStyle({
+				backgroundImage:"url("+this.getPreviewSrc()+")",
+				backgroundPosition:"center center",
+				backgroundRepeat:"no-repeat",
+				webkitBackgroundSize:"contain"});
+		}
+		this.on("load",this.onImageLoad,this);
+		this.imgEl.addListener({
+				scope:this,
+				doubletap:this.onDoubleTap,
+				tap:this.onTap,
+				pinchstart:this.onImagePinchStart,
+				pinch:this.onImagePinch,
+				pinchend:this.onImagePinchEnd
+		});
+		if(this.getImageSrc()){
+			this.loadImage(this.getImageSrc())
+		}
+		this.addListener('resize',this.resize,this);
+	},
+	
+	loadImage:function(a){
+		if(this.imgEl){
+			this.imgEl.dom.src=a;
+			this.imgEl.dom.onload=Ext.Function.bind(this.onLoad,this,this.imgEl,0)
+		}
+	},
+	onTap:function(b,a){
+	},
+	onLoad:function(a,b){
+		this.fireEvent("load",this,a,b)
+	},
+	onImageLoad:function(a){
+		this.viewportWidth = this.viewportWidth || this.getWidth() || this.element.dom.clientWidth;
+		this.viewportHeight = this.viewportHeight || this.getHeight() || this.element.dom.clientHeight;
+		this.imgWidth=this.imgEl.dom.clientWidth;
+		this.imgHeight=this.imgEl.dom.clientHeight;
+		if(this.getResizeOnLoad()){
+			this.scale=this.baseScale=Math.min(this.viewportWidth/this.imgWidth,this.viewportHeight/this.imgHeight);
+			this.setMaxScale(this.scale*4)
+		}
+		else{
+			this.scale=this.baseScale=1
+		}
+
+		this.translateX=this.translateBaseX=(this.viewportWidth-this.baseScale*this.imgWidth)/2;
+		this.translateY=this.translateBaseY=(this.viewportHeight-this.baseScale*this.imgHeight)/2;
+		this.applyTransform();
+		this.adjustScroller();
+		this.imgEl.setStyle({
+			visibility:"visible"
+		});
+		if(this.getPreviewSrc()){
+			this.element.setStyle({
+				backgroundImage:"none"
+			})
+		}
+		if(this.getLoadingMask()){
+			this.setMasked(false)
+		}
+		this.fireEvent("imageLoaded",this)
+	},
+	onImagePinchStart:function(b){
+		var a=this.getScrollable().getScroller();
+		a.stopAnimation();
+		a.setDisabled(true);
+		this.startScale=this.scale;
+		this.originViewportX=(b.touches[0].pageX+b.touches[1].pageX)/2-this.element.getX();
+		this.originViewportY=(b.touches[0].pageY+b.touches[1].pageY)/2-this.element.getY();
+		this.originScaledImgX=this.originViewportX+a.position.x-this.translateX;
+		this.originScaledImgY=this.originViewportY+a.position.y-this.translateY;
+		this.originFullImgX=this.originScaledImgX/this.scale;
+		this.originFullImgY=this.originScaledImgY/this.scale;
+		this.translateX+=(-1*((this.imgWidth*(1-this.scale))*(this.originFullImgX/this.imgWidth)));
+		this.translateY+=(-1*((this.imgHeight*(1-this.scale))*(this.originFullImgY/this.imgHeight)));
+		this.setOrigin(this.originFullImgX,this.originFullImgY);
+		this.applyTransform()
+	},
+	onImagePinch:function(a){
+		this.scale=Ext.Number.constrain(a.scale*this.startScale,this.baseScale-2,this.getMaxScale());
+		this.applyTransform()
+	},
+	onImagePinchEnd:function(a){
+		if(this.scale==this.baseScale){
+			this.setTranslation(this.translateBaseX,this.translateBaseY)
+		}else{
+			if(this.scale<this.baseScale&&this.getResizeOnLoad()){
+				this.resetZoom();	
+				return
+			}
+			this.originReScaledImgX=this.originScaledImgX*(this.scale/this.startScale);
+			this.originReScaledImgY=this.originScaledImgY*(this.scale/this.startScale);
+			this.setTranslation(this.originViewportX-this.originReScaledImgX,this.originViewportY-this.originReScaledImgY)
+		}
+		this.setOrigin(0,0);
+		this.applyTransform();
+		this.adjustScroller()
+	},
+	onZoomIn:function(){
+		var b=this.scale;
+		if(b<this.getMaxScale()){
+			b=this.scale+0.05
+		}
+		if(b>=this.getMaxScale()){
+			b=this.getMaxScale()
+		}
+		var a={pageX:0,pageY:0};
+		a.pageX=this.viewportWidth/2;
+		a.pageY=this.viewportHeight/2;
+		this.zoomImage(a,b)
+	},
+	onZoomOut:function(){
+		var b=this.scale;
+		if(b>this.baseScale){
+			b=this.scale-0.05
+		}
+		if(b<=this.baseScale){
+			b=this.baseScale
+		}
+		var a={pageX:0,pageY:0};
+		a.pageX=this.viewportWidth/2;
+		a.pageY=this.viewportHeight/2;
+		this.zoomImage(a,b)
+	},
+	zoomImage:function(g,b,l){
+		var d=this.getScrollable().getScroller();
+		var e=this;
+		var c=this.scale,f=b,k=g?(g.pageX-this.element.getX()):0,i=g?(g.pageY-this.element.getY()):0,a=k+d.position.x-this.translateX,m=i+d.position.y-this.translateY,j=a*(f/c),h=m*(f/c);
+		this.scale=f;
+		setTimeout(function(){
+			e.setTranslation(k-j,i-h);
+			e.applyTransform();
+			e.adjustScroller();
+			Ext.repaint()
+		},50);
+	},
+	onDoubleTap:function(f,k){
+		var d=this;
+		var c=this.getScrollable().getScroller();
+		if(!this.getDoubleTapScale()){
+			return false
+		}
+		if(this.scale>this.baseScale){
+			this.scale=this.baseScale;
+			this.setTranslation(this.translateBaseX,this.translateBaseY);
+			this.applyTransform();
+			this.adjustScroller();
+			Ext.repaint()
+		}
+		else{
+			var b=this.scale,e=this.baseScale*4,j=f?(f.pageX-this.element.getX()):0,h=f?(f.pageY-this.element.getY()):0,a=j+c.position.x-this.translateX,l=h+c.position.y-this.translateY,i=a*(e/b),g=l*(e/b);
+			this.scale=e;
+			setTimeout(function(){
+				d.setTranslation(j-i,h-g);
+				d.applyTransform();
+				d.adjustScroller();
+				Ext.repaint()
+			},50)
+		}
+	},
+	setOrigin:function(a,b){
+		this.imgEl.dom.style.webkitTransformOrigin=a+"px "+b+"px"
+	},
+	setTranslation:function(b,a){
+		this.translateX=b;
+		this.translateY=a;
+		this.scrollX=this.scrollY=0;
+		if(this.translateX<0){
+			this.scrollX=this.translateX;
+			this.translateX=0
+		}
+		if(this.translateY<0){
+			this.scrollY=this.translateY;
+			this.translateY=0
+		}
+	},
+	resetZoom:function(){
+		this.scale=this.baseScale;
+		this.setTranslation(this.translateBaseX,this.translateBaseY);
+		this.setOrigin(0,0);
+		this.applyTransform();
+		this.adjustScroller()
+	},
+	resize:function(){
+//		this.viewportWidth=this.parent.element.getWidth()||this.viewportWidth||this.getWidth();
+//		this.viewportHeight=this.parent.element.getHeight()||this.viewportHeight||this.getHeight();
+		this.viewportWidth=this.element.dom.clientWidth;
+		this.viewportHeight=this.element.dom.clientHeight;
+		
+		this.imgWidth=this.imgEl.dom.width;
+		this.imgHeight=this.imgEl.dom.height;
+		if(this.getResizeOnLoad()){
+			this.scale=this.baseScale=Math.min(this.viewportWidth/this.imgWidth,this.viewportHeight/this.imgHeight);
+			this.setMaxScale(this.scale*4)
+		}else{
+			this.scale=this.baseScale=1
+		}
+		this.translateX=this.translateBaseX=(this.viewportWidth-this.baseScale*this.imgWidth)/2;
+		this.translateY=this.translateBaseY=(this.viewportHeight-this.baseScale*this.imgHeight)/2;
+		this.applyTransform();
+		this.adjustScroller()
+	},
+	applyTransform:function(){
+		var 	c=Ext.Number.toFixed(this.translateX,5),
+				b=Ext.Number.toFixed(this.translateY,5),
+				a=Ext.Number.toFixed(this.scale,8);
+		if(Ext.os.is.Android){
+			this.imgEl.dom.style.webkitTransform="matrix("+a+",0,0,"+a+","+c+","+b+")"
+		}else{
+			this.imgEl.dom.style.webkitTransform="translate3d("+c+"px, "+b+"px, 0) scale3d("+a+","+a+",1)"
+		}
+	},
+	adjustScroller:function(){
+		var b=this.getScrollable().getScroller();
+		if(this.scale==this.baseScale){
+			b.setDisabled(true)
+		}else{
+			b.setDisabled(false)
+		}
+		var d=Math.max(this.imgWidth*this.scale,this.viewportWidth);
+		var c=Math.max(this.imgHeight*this.scale,this.viewportHeight);
+		this.figEl.setStyle({
+			width:d+"px",
+			height:c+"px"
+		});
+		b.refresh();
+		var a=0;
+		if(this.scrollX){
+			a=this.scrollX
+		}
+		var e=0;
+		if(this.scrollY){
+			e=this.scrollY
+		}
+		b.scrollTo(a*-1,e*-1)
+	}
+});
+
+
 /*
     This file is generated and updated by Sencha Cmd. You can edit this file as
     needed for your application, but these edits will have to be merged by
@@ -87498,7 +87825,8 @@ Ext.application({
 		'ActionSheetUploadImage',
 		'Fileup',
 		'JudgeChallenge',
-		'MiniChallenge'
+		'MiniChallenge',
+		'ImageViewer'
     ],
 	
     models: [

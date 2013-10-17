@@ -60,7 +60,7 @@ Ext.define('HungerApp.view.UserChallenge', {
 			VideoBTN.on('loadsuccess',this.postToFeed,this);
 			VideoBTN.on('success',this.onSuccesfullyPosted,this);
 			VideoBTN.on('failure',this.onFailurePosted,this);
-			VideoBTN.fileElement.dom.accept = "video/*";
+			VideoBTN.fileElement.dom.accept = "video/mp4";
 
 			var imageBTN = msgbox.down('fileupload[itemId=image]');
 			imageBTN.on('loadsuccess',this.postToFeedImage,this);

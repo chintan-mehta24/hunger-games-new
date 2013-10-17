@@ -276,6 +276,9 @@ Ext.define('HungerApp.view.AvatarSelector', {
 		this.getParent().animateActiveItem('#idListMainFeed',{type:'slide',direction:'left',duration:200});
 		var homeview = Ext.Viewport.down('homeview');
 		homeview.down('#mainNavigationTopbar').setHidden(false);
+		var me = this,
+			component = me.down('#imagePreview');
+		component.setSrc(null);
 	},
 	onAvatarUploadFailure:function(a,b,c){
 		Ext.Viewport.setMasked(false);

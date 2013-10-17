@@ -53,7 +53,7 @@ Ext.define('HungerApp.view.MiniChallenge', {
 					auth_token: auth_token,
 					mini_challenge:{
 						mini_challenge_id: record.get('id'),
-						option: answer[0]
+						option: answer[0].option
 					}
 				},
 				success:function(res){
