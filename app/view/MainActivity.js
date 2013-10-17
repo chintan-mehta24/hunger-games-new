@@ -6,7 +6,7 @@ Ext.define('HungerApp.view.MainActivity', {
 		padding: '1em',
 		style : 'color : white;',
 		itemTpl: new Ext.XTemplate([
-						'<div class="thumb avatar" style="background-image:url({profile_image});"></div>',
+						'<div class="thumb avatar" style="background-image:url(<tpl if="profile_image">{profile_image}<tpl else>resources/images/user.png</tpl>);"></div>',
 						'<div class="badge"  style="background-image:url(resources/images/{status}.png);"></div>',
 						'<div class="endorsPlayer">',
 							'<div>',
@@ -115,9 +115,13 @@ Ext.define('HungerApp.view.MainActivity', {
  		if(e.getTarget('.avatar')){
 //			var homeview = Ext.Viewport.down('homeview');
 //			homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
-			var homeController=HungerApp.app.getController('Home');
-			homeController.setProfilePageData(record.get('user_id'));
-			return true;
+			var user_id = record.get('user_id');
+			console.log(user_id)
+			if(user_id){
+				var homeController=HungerApp.app.getController('Home');
+				homeController.setProfilePageData(user_id);
+				return true;
+			}
 		}	
 		var me = this;
  		var el = e.getTarget('.like');

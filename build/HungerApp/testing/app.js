@@ -84417,7 +84417,7 @@ Ext.define('HungerApp.view.MainActivity', {
 		padding: '1em',
 		style : 'color : white;',
 		itemTpl: new Ext.XTemplate([
-						'<div class="thumb avatar" style="background-image:url({profile_image});"></div>',
+						'<div class="thumb avatar" style="background-image:url(<tpl if="profile_image">{profile_image}<tpl else>resources/images/user.png</tpl>);"></div>',
 						'<div class="badge"  style="background-image:url(resources/images/{status}.png);"></div>',
 						'<div class="endorsPlayer">',
 							'<div>',
@@ -84526,9 +84526,13 @@ Ext.define('HungerApp.view.MainActivity', {
  		if(e.getTarget('.avatar')){
 //			var homeview = Ext.Viewport.down('homeview');
 //			homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
-			var homeController=HungerApp.app.getController('Home');
-			homeController.setProfilePageData(record.get('user_id'));
-			return true;
+			var user_id = record.get('user_id');
+			console.log(user_id)
+			if(user_id){
+				var homeController=HungerApp.app.getController('Home');
+				homeController.setProfilePageData(user_id);
+				return true;
+			}
 		}	
 		var me = this;
  		var el = e.getTarget('.like');
@@ -85817,20 +85821,20 @@ Ext.define('HungerApp.view.ChallengeReview', {
 			console.log(record.data.avatar_content_type,record.data.post_url);
 			var post_url = record.data.post_url;
 			var type = record.data.avatar_content_type.substr(0,5);
-			if(type.toLowerCase()=="video")
-			{
-				ActionSheetViewChallenge.down('#idVideo').setHidden(false);
-				ActionSheetViewChallenge.down('#idVideo').setUrl(post_url);
-				ActionSheetViewChallenge.down('#idVideo').play();
-				ActionSheetViewChallenge.down('#idVideo').ghost.hide();
-				ActionSheetViewChallenge.down('#idVideo').media.show();
-				ActionSheetViewChallenge.down('#idImage').setHidden(true);
+			var videoView = ActionSheetViewChallenge.down('#idVideo');
+			var imageView = ActionSheetViewChallenge.down('#idImage');
+			if(type.toLowerCase()=="video"){
+				videoView.setHidden(false);
+				videoView.setUrl(post_url);
+				videoView.play();
+				videoView.ghost.hide();
+				videoView.media.show();
+				imageView.setHidden(true);
 			}
-			else if(type.toLowerCase()=="image")
-			{
-				ActionSheetViewChallenge.down('#idVideo').setHidden(true);
-				ActionSheetViewChallenge.down('#idImage').setHidden(false);
-				ActionSheetViewChallenge.down('#idImage').setSrc(post_url);				
+			else if(type.toLowerCase()=="image"){
+				videoView.setHidden(true);
+				imageView.setHidden(false);
+				imageView.setSrc(post_url);				
 			}
 			ActionSheetViewChallenge.setBackForm(this.getItemId());
 			homeview.animateActiveItem('#idActionSheetViewChallenge',{type:'slide',direction: 'left'})
@@ -85847,7 +85851,7 @@ Ext.define('HungerApp.view.ChallengeReview', {
 	},
 	
 	ratePrompt: function(uid,token,cid){
-		Ext.Msg.prompt("Rate","Enter your points",function(btn,data){
+/* 		Ext.Msg.prompt("Rate","Enter your points",function(btn,data){
 			if(btn == "ok"){
 				if(Ext.isEmpty(data)){
 					Ext.Msg.alert(null,'Points cannot be blank.',function(){
@@ -85870,9 +85874,75 @@ Ext.define('HungerApp.view.ChallengeReview', {
 		},this,false,false,{
 			xtype: 'numberfield',
 			placeHolder: 'Enter points'
+		}); */
+		
+
+		var ratePromptView = Ext.Viewport.add({
+			xtype: 'panel',
+			centered: true,
+			modal: true,
+			rateData: {
+				user_id : uid,
+				auth_token: token,
+				challenge_id: cid
+			},
+			cls: ['x-msgbox','ratingPromptCls'],
+			items:[{
+					xtype: 'titlebar',
+					docked: 'top',
+					cls:'x-msgbox-title',
+					title: 'Rate'
+				},{
+					xtype: 'dataview',
+					inline: true,
+					cls: 'ratingDataviewCls',
+					itemTpl: '<div>{number}</div>',
+					scrollable: null,
+					data: [
+						{number:1},{number:2},{number:3},
+						{number:4},{number:5},{number:6},
+						{number:7},{number:8},{number:9},
+						{number:10}
+					]
+				},
+				{
+					xtype: 'titlebar',
+					docked:'bottom',
+					cls:'x-msgbox-buttons',
+					items:[{
+						xtype: 'button',
+						cls: 'x-button',
+						align: 'left',
+						itemId: 'cancel',
+						text: 'Cancel'
+					},{
+						xtype: 'button',
+						align: 'right',
+						cls: 'x-button',
+						itemId: 'ok',
+						text: 'Ok'
+					}]
+				}
+			]
 		});
+		var btn = ratePromptView.down('#cancel');
+		btn.on('tap',ratePromptView.hide,ratePromptView);
+		var btn = ratePromptView.down('#ok');
+		btn.on('tap',this.doTapOnRateButton, ratePromptView);
 	},
-	
+	doTapOnRateButton: function(){
+		var dataview = this.down('dataview');
+		var selection = dataview.getSelection();
+		if(!selection.length){
+			Ext.Msg.alert('','Please select number');
+			return;
+		}
+		var rate = selection[0].get('number');
+		this.hide({duration: 300,type: 'fade',out:true});
+		var userData = this.config['rateData'];
+		var homeController = HungerApp.app.getController('Home');
+		homeController.sendPoints(userData.user_id, userData.auth_token, userData.challenge_id, rate);
+	}
 });
 
 /*
@@ -86006,14 +86076,12 @@ Ext.define('HungerApp.view.JudgeChallenge', {
 				success:function(res){
 					console.log(res);
 					var loginData = Ext.decode(res.responseText);
-					if(loginData.errors)
-					{
+					if(loginData.errors){
 						Ext.Msg.alert("Error",loginData.errors);
 						return;
 					}
 
-					if(!loginData.player_challenges)
-					{
+					if(!loginData.player_challenges){
 						Ext.Msg.alert(null,"Yet not posted by any player.");
 						return;
 					}

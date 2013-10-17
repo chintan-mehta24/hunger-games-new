@@ -726,3 +726,29 @@ html,  body{
 	color: white;
 	text-align: center;
 }
+
+.ratingPromptCls.x-msgbox{
+	background: white;
+	box-shadow: none;
+	@include border-radius(0);
+	.x-dataview-item{
+		width: 20%;
+		text-align: center;
+		padding-bottom: 1em;
+		> div{
+			display: inline-block;
+			border: 2px solid #EE7223;
+			color: #EE7223;
+			width: 2em;
+			height: 2em;
+			line-height: 2;
+		}
+		&.x-item-selected{
+			> div{
+				@include box-shadow(0 0 0 2px white inset);
+				background-color: #EE7223;
+				color: white;
+			}
+		}
+	}
+}
