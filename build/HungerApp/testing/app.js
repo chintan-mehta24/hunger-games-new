@@ -84561,7 +84561,7 @@ Ext.define('HungerApp.view.MainActivity', {
 			return true;
 		}
 		if(e.getTarget('.poster')){
-			Ext.Viewport.add({
+			var imageViewer = Ext.Viewport.add({
 				xtype: 'imageviewer',
 				imageSrc: record.get('avatar_image'),
 				items: [{
@@ -84574,7 +84574,11 @@ Ext.define('HungerApp.view.MainActivity', {
 						iconCls: 'delete'
 					}]
 				}]
-			}).show();
+			});
+			imageViewer.show();
+			imageViewer.down('button[iconCls=delete]').on('tap',function(){
+										this.destroy();
+							},imageViewer);
 		}
 		// imageSrc
 	},
@@ -84852,13 +84856,14 @@ Ext.define('HungerApp.view.UserProfile', {
 				itemTpl: new Ext.XTemplate('<div class="endorsPlayer">',
 							'<div class="title">{title}<span>{created_at:this.setMyDate}</span></div>',
 							'<div class="message">{description}</div>',
+							'<tpl if="youtube_link"><div class="postBtnCls">View</div></tpl>',
 						'</div>',{
 							setMyDate:function(date){
 							   return Ext.Date.format(new Date(date), 'd/m/y');
 							}
 						}),
 				store : {
-					fields:["description","title","created_at"],
+					fields:["description","title","created_at","youtube_link"],
 					data:[]
 				},
 				items:[{
@@ -84897,6 +84902,10 @@ Ext.define('HungerApp.view.UserProfile', {
 			delegate: '#userSkills',
 			event: 'itemtap',
 			fn: 'endorseSkill'
+		},{
+			delegate: '#recent_challenges',
+			event: 'itemtap',
+			fn: 'doActionItemtapOnChllenges'
 		}]
 	},
  	doPledgeCharity: function(){
@@ -84974,6 +84983,14 @@ Ext.define('HungerApp.view.UserProfile', {
 				Ext.Msg.alert("Error","Status Code: " + res.status);
 			}
 		});
+	},
+	doActionItemtapOnChllenges: function(ths,index,target,record,e){
+		if(e.getTarget('.postBtnCls')){
+			var url = record.get('youtube_link');
+			if(url.indexOf('http://') == -1)
+				url = 'http://' + url;
+			window.open(url,'_blank');
+		}
 	}
 });
 
@@ -84996,11 +85013,11 @@ Ext.define('HungerApp.view.Scoreboard', {
 				'</div>'+
 				'<div class="scorecard-detail">'+
 					'<div class="likes">{like_and_dislike_point}</div>'+
-					'<div class="social">{feed_comment_point}</div>'+
+					'<div class="social">{login_point:this.add(values)}</div>'+
 					'<div class="support">{support_point}</div>'+
 					'<div class="challenges">{challenges_point}</div>'+
 					//'<div class="challenge">{minichallenge_point}</div>'+
-					'<div class="comments">{login_point:this.add(values)}</div>'+
+					'<div class="comments">{feed_comment_point}</div>'+
 				'</div>',{
 					add:function(v1,v2){
 						return v1 + v2.minichallenge_point;
@@ -85815,10 +85832,8 @@ Ext.define('HungerApp.view.ChallengeReview', {
 		var userStore = Ext.getStore('Profile');
 	
 		if(e.getTarget('.acceptCls')){
-			//alert("View clicked");
 			var homeview = Ext.Viewport.down('homeview');	
 			var ActionSheetViewChallenge = homeview.down('#idActionSheetViewChallenge');
-			console.log(record.data.avatar_content_type,record.data.post_url);
 			var post_url = record.data.post_url;
 			var type = record.data.avatar_content_type.substr(0,5);
 			var videoView = ActionSheetViewChallenge.down('#idVideo');
@@ -85839,53 +85854,21 @@ Ext.define('HungerApp.view.ChallengeReview', {
 			ActionSheetViewChallenge.setBackForm(this.getItemId());
 			homeview.animateActiveItem('#idActionSheetViewChallenge',{type:'slide',direction: 'left'})
 			
-			//var homeview = Ext.Viewport.down('homeview');
-			//homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
 		}
 		if(e.getTarget('.denyCls')){
-			//alert("Rate clicked");
-			this.ratePrompt(record.data.user_id,userStore.getAt(0).data.auth_token,record.data.challenge_id);
-			//var homeview = Ext.Viewport.down('homeview');
-			//homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
+			this.ratePrompt(record.data, userStore.getAt(0).data.auth_token);
 		}
 	},
 	
-	ratePrompt: function(uid,token,cid){
-/* 		Ext.Msg.prompt("Rate","Enter your points",function(btn,data){
-			if(btn == "ok"){
-				if(Ext.isEmpty(data)){
-					Ext.Msg.alert(null,'Points cannot be blank.',function(){
-						this.ratePrompt(uid,token,cid);
-					},this);
-					return;
-				}
-				
-				var num = Number(data);
-				
-				if((0>num) || (10<num) || (isNaN(data)==true)){
-					Ext.Msg.alert(null,'Points should be within 0 to 10.',function(){
-						this.ratePrompt(uid,token,cid);
-					},this);
-					return;
-				}
-				var homeController = HungerApp.app.getController('Home');
-				homeController.sendPoints(uid,token,cid,data);
-			}
-		},this,false,false,{
-			xtype: 'numberfield',
-			placeHolder: 'Enter points'
-		}); */
-		
-
+	ratePrompt: function(recordData,token){
+		var data = Ext.apply({
+				auth_token: token
+			},recordData);
 		var ratePromptView = Ext.Viewport.add({
 			xtype: 'panel',
 			centered: true,
 			modal: true,
-			rateData: {
-				user_id : uid,
-				auth_token: token,
-				challenge_id: cid
-			},
+			rateData: data,
 			cls: ['x-msgbox','ratingPromptCls'],
 			items:[{
 					xtype: 'titlebar',
@@ -85941,7 +85924,9 @@ Ext.define('HungerApp.view.ChallengeReview', {
 		this.hide({duration: 300,type: 'fade',out:true});
 		var userData = this.config['rateData'];
 		var homeController = HungerApp.app.getController('Home');
-		homeController.sendPoints(userData.user_id, userData.auth_token, userData.challenge_id, rate);
+		userData.points = rate;
+		console.log(userData);
+		homeController.sendPoints(userData);
 	}
 });
 
@@ -87025,21 +87010,17 @@ Ext.define('HungerApp.controller.Home', {
 		});
 	},
 	
-	sendPoints :function(uid,token,cid,points){
+	sendPoints :function(params){
 		var me = this;
-		//var homeview = Ext.Viewport.down('homeview');
-		//var videoView = homeview.down('#idFeaturedVideo');
-		//videoView.setBackForm(backRef.getItemId());
-		//homeview.animateActiveItem('#idFeaturedVideo',{type:'slide',direction:'left',duration:200});
-		//return;
 		Ext.Ajax.request({
-			url:applink+"api/judge_points?auth_token="+token,
+			url: applink + "api/judge_points?auth_token=" + params.auth_token,
 			method:"POST",
 			jsonData : {
 				 judge_point : {
-					user_id : uid,
-					challenge_id : cid,
-					points: points
+					user_id : params.user_id,
+					challenge_id : params.challenge_id,
+					player_challenge_id : params.player_challenge_id,
+					points: params.points
 				}
 			},
 			success:function(res){
@@ -87049,6 +87030,7 @@ Ext.define('HungerApp.controller.Home', {
 					Ext.Msg.alert("Error",data.errors);
 					return;
 				}
+				Ext.Msg.alert("",data.message);
 			},
 			failure:function(res){
 				Ext.Msg.alert(null,"Communication Error");
@@ -87268,6 +87250,7 @@ Ext.define('HungerApp.model.ReviewList', {
             {name: 'email', type: 'string'},
             {name: 'last_name', type: 'string'},
 			{name: 'post_url', type: 'string'},
+			{name: 'player_challenge_id', type: 'auto'},
             {name: 'avatar_content_type', type: 'string'}
         ],
     }

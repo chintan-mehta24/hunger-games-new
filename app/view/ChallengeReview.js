@@ -24,10 +24,8 @@ Ext.define('HungerApp.view.ChallengeReview', {
 		var userStore = Ext.getStore('Profile');
 	
 		if(e.getTarget('.acceptCls')){
-			//alert("View clicked");
 			var homeview = Ext.Viewport.down('homeview');	
 			var ActionSheetViewChallenge = homeview.down('#idActionSheetViewChallenge');
-			console.log(record.data.avatar_content_type,record.data.post_url);
 			var post_url = record.data.post_url;
 			var type = record.data.avatar_content_type.substr(0,5);
 			var videoView = ActionSheetViewChallenge.down('#idVideo');
@@ -48,53 +46,21 @@ Ext.define('HungerApp.view.ChallengeReview', {
 			ActionSheetViewChallenge.setBackForm(this.getItemId());
 			homeview.animateActiveItem('#idActionSheetViewChallenge',{type:'slide',direction: 'left'})
 			
-			//var homeview = Ext.Viewport.down('homeview');
-			//homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
 		}
 		if(e.getTarget('.denyCls')){
-			//alert("Rate clicked");
-			this.ratePrompt(record.data.user_id,userStore.getAt(0).data.auth_token,record.data.challenge_id);
-			//var homeview = Ext.Viewport.down('homeview');
-			//homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
+			this.ratePrompt(record.data, userStore.getAt(0).data.auth_token);
 		}
 	},
 	
-	ratePrompt: function(uid,token,cid){
-/* 		Ext.Msg.prompt("Rate","Enter your points",function(btn,data){
-			if(btn == "ok"){
-				if(Ext.isEmpty(data)){
-					Ext.Msg.alert(null,'Points cannot be blank.',function(){
-						this.ratePrompt(uid,token,cid);
-					},this);
-					return;
-				}
-				
-				var num = Number(data);
-				
-				if((0>num) || (10<num) || (isNaN(data)==true)){
-					Ext.Msg.alert(null,'Points should be within 0 to 10.',function(){
-						this.ratePrompt(uid,token,cid);
-					},this);
-					return;
-				}
-				var homeController = HungerApp.app.getController('Home');
-				homeController.sendPoints(uid,token,cid,data);
-			}
-		},this,false,false,{
-			xtype: 'numberfield',
-			placeHolder: 'Enter points'
-		}); */
-		
-
+	ratePrompt: function(recordData,token){
+		var data = Ext.apply({
+				auth_token: token
+			},recordData);
 		var ratePromptView = Ext.Viewport.add({
 			xtype: 'panel',
 			centered: true,
 			modal: true,
-			rateData: {
-				user_id : uid,
-				auth_token: token,
-				challenge_id: cid
-			},
+			rateData: data,
 			cls: ['x-msgbox','ratingPromptCls'],
 			items:[{
 					xtype: 'titlebar',
@@ -150,6 +116,8 @@ Ext.define('HungerApp.view.ChallengeReview', {
 		this.hide({duration: 300,type: 'fade',out:true});
 		var userData = this.config['rateData'];
 		var homeController = HungerApp.app.getController('Home');
-		homeController.sendPoints(userData.user_id, userData.auth_token, userData.challenge_id, rate);
+		userData.points = rate;
+		console.log(userData);
+		homeController.sendPoints(userData);
 	}
 });

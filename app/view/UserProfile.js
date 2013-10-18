@@ -125,13 +125,14 @@ Ext.define('HungerApp.view.UserProfile', {
 				itemTpl: new Ext.XTemplate('<div class="endorsPlayer">',
 							'<div class="title">{title}<span>{created_at:this.setMyDate}</span></div>',
 							'<div class="message">{description}</div>',
+							'<tpl if="youtube_link"><div class="postBtnCls">View</div></tpl>',
 						'</div>',{
 							setMyDate:function(date){
 							   return Ext.Date.format(new Date(date), 'd/m/y');
 							}
 						}),
 				store : {
-					fields:["description","title","created_at"],
+					fields:["description","title","created_at","youtube_link"],
 					data:[]
 				},
 				items:[{
@@ -170,6 +171,10 @@ Ext.define('HungerApp.view.UserProfile', {
 			delegate: '#userSkills',
 			event: 'itemtap',
 			fn: 'endorseSkill'
+		},{
+			delegate: '#recent_challenges',
+			event: 'itemtap',
+			fn: 'doActionItemtapOnChllenges'
 		}]
 	},
  	doPledgeCharity: function(){
@@ -247,5 +252,13 @@ Ext.define('HungerApp.view.UserProfile', {
 				Ext.Msg.alert("Error","Status Code: " + res.status);
 			}
 		});
+	},
+	doActionItemtapOnChllenges: function(ths,index,target,record,e){
+		if(e.getTarget('.postBtnCls')){
+			var url = record.get('youtube_link');
+			if(url.indexOf('http://') == -1)
+				url = 'http://' + url;
+			window.open(url,'_blank');
+		}
 	}
 });

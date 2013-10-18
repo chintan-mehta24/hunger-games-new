@@ -355,21 +355,17 @@ Ext.define('HungerApp.controller.Home', {
 		});
 	},
 	
-	sendPoints :function(uid,token,cid,points){
+	sendPoints :function(params){
 		var me = this;
-		//var homeview = Ext.Viewport.down('homeview');
-		//var videoView = homeview.down('#idFeaturedVideo');
-		//videoView.setBackForm(backRef.getItemId());
-		//homeview.animateActiveItem('#idFeaturedVideo',{type:'slide',direction:'left',duration:200});
-		//return;
 		Ext.Ajax.request({
-			url:applink+"api/judge_points?auth_token="+token,
+			url: applink + "api/judge_points?auth_token=" + params.auth_token,
 			method:"POST",
 			jsonData : {
 				 judge_point : {
-					user_id : uid,
-					challenge_id : cid,
-					points: points
+					user_id : params.user_id,
+					challenge_id : params.challenge_id,
+					player_challenge_id : params.player_challenge_id,
+					points: params.points
 				}
 			},
 			success:function(res){
@@ -379,6 +375,7 @@ Ext.define('HungerApp.controller.Home', {
 					Ext.Msg.alert("Error",data.errors);
 					return;
 				}
+				Ext.Msg.alert("",data.message);
 			},
 			failure:function(res){
 				Ext.Msg.alert(null,"Communication Error");

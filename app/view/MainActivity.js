@@ -150,7 +150,7 @@ Ext.define('HungerApp.view.MainActivity', {
 			return true;
 		}
 		if(e.getTarget('.poster')){
-			Ext.Viewport.add({
+			var imageViewer = Ext.Viewport.add({
 				xtype: 'imageviewer',
 				imageSrc: record.get('avatar_image'),
 				items: [{
@@ -163,7 +163,11 @@ Ext.define('HungerApp.view.MainActivity', {
 						iconCls: 'delete'
 					}]
 				}]
-			}).show();
+			});
+			imageViewer.show();
+			imageViewer.down('button[iconCls=delete]').on('tap',function(){
+										this.destroy();
+							},imageViewer);
 		}
 		// imageSrc
 	},
