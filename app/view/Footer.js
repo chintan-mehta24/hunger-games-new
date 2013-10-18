@@ -42,10 +42,14 @@ Ext.define('HungerApp.view.Footer', {
 					"app_id=" + "734460156570085" +
 					"&display=popup" +
 					"&caption=" + "Hunger%20Games" +
-					"&link=" + encodeURIComponent("http://solerahungergames.com") +
+					"&link=" + encodeURI("http://solerahungergames.com") +
+					"&picture=" + encodeURI("http://tinyurl.com/ms4ykpk") +
+					"&redirect_uri=" + encodeURI("http://solerahungergames.com") +
+					"&description=" + encodeURI("Hunger Solera Games Challenge");
+/*					"&link=" + encodeURIComponent("http://solerahungergames.com") +
 					"&picture=" + encodeURIComponent("http://tinyurl.com/ms4ykpk") +
 					"&redirect_uri=" + encodeURIComponent("http://solerahungergames.com") +
-					"&description=" + encodeURIComponent("Hunger Solera Games Challenge");
+					"&description=" + encodeURIComponent("Hunger Solera Games Challenge");*/
 		window.open(URL, "_blank");
 	},
 	shareOnTwitter: function(){

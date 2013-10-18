@@ -84428,6 +84428,7 @@ Ext.define('HungerApp.view.MainActivity', {
 							'<div class="comments">{feed_comments:this.commentCount} Comments',
 									'<span class="like <tpl if=\"is_like\">dislike</tpl>"></span>',
 									'<span class="comment"></span>',
+									'<span class="facebook"></span>',
 							'</div>',
 							'<tpl if="this.commentCount(feed_comments) &gt; 0"><div class="comment-list">',
 								'<tpl for="feed_comments">',
@@ -84541,6 +84542,7 @@ Ext.define('HungerApp.view.MainActivity', {
 			this.doLikeDislike(record,like);
 			return true;
 		}
+		////////////////////////////////////
 		var elComment = e.getTarget('.comment');
 		if(elComment){
 			var msgBox = Ext.Msg.prompt(record.get("user_name"),"Enter the Text to Comment:",function(btn,value){
@@ -84555,11 +84557,22 @@ Ext.define('HungerApp.view.MainActivity', {
 			});
 			return true;
 		}
+
+		////////////////////////////////////
+		var elComment = e.getTarget('.facebook');
+		if(elComment){
+		   this.shareOnFaceBook(record);
+		   return true;
+		}
+		
+		////////////////////////////////////
 		if(e.getTarget('.comments')){
 			var me = this;
 			target.addCls("show-comment");
 			return true;
 		}
+
+		////////////////////////////////////
 		if(e.getTarget('.poster')){
 			var imageViewer = Ext.Viewport.add({
 				xtype: 'imageviewer',
@@ -84580,6 +84593,7 @@ Ext.define('HungerApp.view.MainActivity', {
 										this.destroy();
 							},imageViewer);
 		}
+		
 		// imageSrc
 	},
 	loadMainActivityList: function(){
@@ -84726,6 +84740,45 @@ Ext.define('HungerApp.view.MainActivity', {
 		var fileUP = this.down('#idBtnImagePost');
 		fileUP.reset();
 		Ext.Msg.alert('','Media not Uploaded');
+	},
+	shareOnFaceBook: function(record){
+		var userProfile = Ext.getStore('Profile'),
+			rec = userProfile.getAt(0),
+			auth_token = rec.get('auth_token');
+		Ext.Ajax.request({
+			url: applink + "api/social_media_points/social_media_like",
+			method:"POST",
+			jsonData : {
+				auth_token: auth_token,
+				"social_media":{
+				   user_id: record.get('user_id'),
+				   status: 'facebook'
+			   }
+			},
+			success:function(res){
+				var loginData = Ext.decode(res.responseText);
+				if(loginData.errors){
+					Ext.Msg.alert("Error",loginData.errors);
+					return;
+				}
+				Ext.Viewport.setMasked(false);
+		      var URL = 	"https://www.facebook.com/dialog/feed?"+
+					      "app_id=" + "734460156570085" +
+					      "&display=popup" +
+					      "&caption=" + "Solera%20Hunger%20Games" +
+					      "&name=" + encodeURI(record.get("user_name")) + 
+					      "&link=" + encodeURI("http://solerahungergames.com") +
+					      "&picture=" + encodeURI(record.get('profile_image')) +
+					      "&redirect_uri=" + encodeURI("http://solerahungergames.com") +
+					      "&description=" + encodeURI(record.get('message'));
+		      window.open(URL, "_blank");
+				
+			},
+			failure:function(res){
+				console.log(res)
+				Ext.Msg.alert(null,"Communication Error");
+			}
+		});
 	}
 });
 
@@ -86268,10 +86321,14 @@ Ext.define('HungerApp.view.Footer', {
 					"app_id=" + "734460156570085" +
 					"&display=popup" +
 					"&caption=" + "Hunger%20Games" +
-					"&link=" + encodeURIComponent("http://solerahungergames.com") +
+					"&link=" + encodeURI("http://solerahungergames.com") +
+					"&picture=" + encodeURI("http://tinyurl.com/ms4ykpk") +
+					"&redirect_uri=" + encodeURI("http://solerahungergames.com") +
+					"&description=" + encodeURI("Hunger Solera Games Challenge");
+/*					"&link=" + encodeURIComponent("http://solerahungergames.com") +
 					"&picture=" + encodeURIComponent("http://tinyurl.com/ms4ykpk") +
 					"&redirect_uri=" + encodeURIComponent("http://solerahungergames.com") +
-					"&description=" + encodeURIComponent("Hunger Solera Games Challenge");
+					"&description=" + encodeURIComponent("Hunger Solera Games Challenge");*/
 		window.open(URL, "_blank");
 	},
 	shareOnTwitter: function(){

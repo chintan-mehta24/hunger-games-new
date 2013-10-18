@@ -14,7 +14,35 @@
 //@require @packageOverrides
 
 //<debug>
-
+Ext.require('Ext.scroll.View',function(){
+	Ext.override(Ext.scroll.View, {
+	   mouseWheelAdded: false,
+	   refresh: function() {
+	   	   if(!this.mouseWheelAdded){
+	   	   	   //this.getElement().dom.addEventListener('DOMMouseScroll',this.scrollUsingMouse.bind(this),false);
+	   	   	   this.getElement().dom.addEventListener('mousewheel',this.scrollUsingMouse.bind(this),false);
+	   	   	   this.mouseWheelAdded = true;
+	   	   }
+	   	   return this.getScroller().refresh();
+	   },
+	   scrollUsingMouse: function(event){
+	      var scroller = this.getScroller(),
+	          currentPosition = scroller.position,
+		       maxPosition = scroller.maxPosition;
+	      var flag = 0;
+	      if(event.wheelDeltaY > 0){
+		      if(currentPosition.y != 0)
+		         flag = -1;
+	      }
+	      else{
+		      if(currentPosition.y != maxPosition.y)
+		         flag = 1;
+	      }
+	      scroller.scrollBy(0,30 * flag);
+	      scroller.refresh();
+	   }
+   });
+});
 
 Ext.Loader.setPath({
     'Ext': 'touch/src',
