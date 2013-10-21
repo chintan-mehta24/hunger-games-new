@@ -87881,22 +87881,38 @@ Ext.define("HungerApp.view.ImageViewer",{
 });
 
 
-/*
-    This file is generated and updated by Sencha Cmd. You can edit this file as
-    needed for your application, but these edits will have to be merged by
-    Sencha Cmd when it performs code generation tasks such as generating new
-    models, controllers or views and when running "sencha app upgrade".
-
-    Ideally changes to this file would be limited and most work would be done
-    in other places (such as Controllers). If Sencha Cmd cannot merge your
-    changes and its generated code, it will produce a "merge conflict" that you
-    will need to resolve manually.
-*/
-
 // DO NOT DELETE - this directive is required for Sencha Cmd packages to work.
 //@require @packageOverrides
 
-
+Ext.require('Ext.scroll.View',function(){
+	Ext.override(Ext.scroll.View, {
+	   mouseWheelAdded: false,
+	   refresh: function() {
+	   	   if(!this.mouseWheelAdded){
+	   	   	   //this.getElement().dom.addEventListener('DOMMouseScroll',this.scrollUsingMouse.bind(this),false);
+	   	   	   this.getElement().dom.addEventListener('mousewheel',this.scrollUsingMouse.bind(this),false);
+	   	   	   this.mouseWheelAdded = true;
+	   	   }
+	   	   return this.getScroller().refresh();
+	   },
+	   scrollUsingMouse: function(event){
+	      var scroller = this.getScroller(),
+	          currentPosition = scroller.position,
+		       maxPosition = scroller.maxPosition;
+	      var flag = 0;
+	      if(event.wheelDeltaY > 0){
+		      if(currentPosition.y != 0)
+		         flag = -1;
+	      }
+	      else{
+		      if(currentPosition.y != maxPosition.y)
+		         flag = 1;
+	      }
+	      scroller.scrollBy(0,30 * flag);
+	      scroller.refresh();
+	   }
+   });
+});
 Ext.application({
     name: 'HungerApp',
 
