@@ -68,23 +68,26 @@ Ext.define('HungerApp.view.EditProfile', {
 					labelAlign: 'right'
 				},
 				items: [
+					{ xtype:'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+//						flex: 1,
 						value: 'Male',
 						label: 'Male:',
 						itemId: 'checkBoxMale',
 						//checked: true
 					},
+					{ xtype:'spacer'},
 					{
 						xtype: 'radiofield',
 						name : 'sex',
-						flex: 1,
+//						flex: 1,
 						value: 'Female',
 						itemId: 'checkBoxFemale',
 						label: 'Female:'
-					}
+					},
+					{ xtype:'spacer'}
 				]
 			},
 			{
