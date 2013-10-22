@@ -24,7 +24,7 @@ Ext.define('HungerApp.view.Scoreboard', {
 					'<div class="comments">{feed_comment_point}</div>'+
 				'</div>',{
 					add:function(v1,v2){
-						return v1 + v2.minichallenge_point;
+						return v1 + v2.minichallenge_point + v2.social_media_point;
 					}
 				}),
 		emptyText: 'No items',
