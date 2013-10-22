@@ -84752,6 +84752,7 @@ Ext.define('HungerApp.view.MainActivity', {
 				auth_token: auth_token,
 				"social_media":{
 				   user_id: record.get('user_id'),
+				   challenge_id: record.get('activity_id'),
 				   status: 'facebook'
 			   }
 			},
@@ -84771,7 +84772,7 @@ Ext.define('HungerApp.view.MainActivity', {
 					      "&picture=" + encodeURI(record.get('profile_image')) +
 					      "&redirect_uri=" + encodeURI("http://solerahungergames.com") +
 					      "&description=" + encodeURI(record.get('message'));
-		      window.open(URL, "_blank");
+		      window.open(URL,"_self");
 				
 			},
 			failure:function(res){
@@ -84782,9 +84783,9 @@ Ext.define('HungerApp.view.MainActivity', {
 	}
 });
 
-var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url(\'{avatar_url}\');"></div>',
+var tp = new Ext.XTemplate('<div class="thumb" style="background-image:url(\'<tpl if="endorsement_name">{endorsement_image}<tpl else>{avatar_url}</tpl>\');"></div>',
 							'<div class="endorsPlayer">',
-								'<div class="title">{user_first_name} {user_last_name}<span>{created_at:this.setMyDate}</span></div>',
+								'<div class="title"><tpl if="endorsement_name">{endorsement_name}<tpl else>{user_first_name} {user_last_name}</tpl><span>{created_at:this.setMyDate}</span></div>',
 								'<div class="message">{message}</div>',
 							'</div>',{
 										// XTemplate configuration:

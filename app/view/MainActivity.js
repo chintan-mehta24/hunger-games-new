@@ -341,6 +341,7 @@ Ext.define('HungerApp.view.MainActivity', {
 				auth_token: auth_token,
 				"social_media":{
 				   user_id: record.get('user_id'),
+				   challenge_id: record.get('activity_id'),
 				   status: 'facebook'
 			   }
 			},
@@ -360,7 +361,7 @@ Ext.define('HungerApp.view.MainActivity', {
 					      "&picture=" + encodeURI(record.get('profile_image')) +
 					      "&redirect_uri=" + encodeURI("http://solerahungergames.com") +
 					      "&description=" + encodeURI(record.get('message'));
-		      window.open(URL, "_blank");
+		      window.open(URL,"_self");
 				
 			},
 			failure:function(res){
