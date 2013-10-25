@@ -90,9 +90,26 @@ Ext.define('HungerApp.view.UserProfile', {
 				]
 			},
 			{
-				xtype : 'component',
-				itemId: 'bio',
+				xtype: 'container',
 				cls   : 'formExtraLableCls',
+				layout: {
+					type:'hbox',
+					align: 'stretch',
+					pack: 'justify'
+				},
+				items:[
+					{
+						xtype: 'image',
+						itemId: 'user_type',
+						width: '3em'
+					},
+					{
+						xtype : 'component',
+						itemId: 'bio',
+						flex: 1,
+						cls   : 'formExtraLableCls'
+					}
+				]
 			},
 			{
 				xtype: 'dataview',

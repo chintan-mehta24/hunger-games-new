@@ -258,8 +258,9 @@ Ext.define('HungerApp.controller.Home', {
 		var me = this;
 		var userStore = Ext.getStore('Profile'),
 			record = userStore.getAt(0),
-			auth_token = record.get('auth_token');
-
+			auth_token = record.get('auth_token'),
+			my_id = record.get('user_id');
+		isMyProfile = (my_id == user_id);
 		Ext.Ajax.request({
 			url:applink+"api/users/get_profile?auth_token=" + auth_token,
 			method:"POST",
@@ -281,6 +282,7 @@ Ext.define('HungerApp.controller.Home', {
 				profileForm.down('#name').setHtml(data.name+" "+data.last_name);
 				profileForm.down('#company').setHtml(data.company);
 				profileForm.down('#md_name').setHtml(data.md_name);
+				profileForm.down('#user_type').setSrc("resources/images/" + data.status + ".png");
 				profileForm.down('#bio').setHtml(data.bio);
 				
 				if(!isMyProfile){

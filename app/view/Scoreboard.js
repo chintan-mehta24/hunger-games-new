@@ -28,6 +28,21 @@ Ext.define('HungerApp.view.Scoreboard', {
 					}
 				}),
 		emptyText: 'No items',
-		store : 'ScoreBoard'
+		store : 'ScoreBoard',
+		listeners:[{
+			event: 'itemtap',
+			fn: 'onItemTapAction'
+		}]
+	},
+	onItemTapAction: function(ths,index,target,record,e){
+		if(e.getTarget('.thumb')){
+			var user_id = record.get('user_id');
+			console.log(user_id)
+			if(user_id){
+				var homeController=HungerApp.app.getController('Home');
+				homeController.setProfilePageData(user_id);
+				return true;
+			}
+		}
 	}
 });
