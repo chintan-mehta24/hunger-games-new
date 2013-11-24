@@ -32,19 +32,54 @@ Ext.define('HungerApp.controller.Home', {
 			});
 			
 			var userStore = Ext.getStore('Profile');
-			if(userStore.getCount()>0)
-			{
-				if(userStore.getAt(0).data.status=="md")
-				{
-					me.getPlayerReq(userStore.getAt(0).data.auth_token);
+			if(userStore.getCount()>0){
+				var homeview = Ext.Viewport.down('homeview'),
+					navToolbar = homeview.down('#mainNavigationTopbar'),
+					subNavBtn = navToolbar.down('#mainMenuSubNavigationBtn'),
+					userRec = userStore.getAt(0);
+				subNavBtn.setText(userRec.get('name') + " " + userRec.get('last_name'));
+				if(userRec.get('status') == "md"){
+					me.getPlayerReq(userStore.getAt(0).get('auth_token'));
 					return;
 				}
-				var homeview = Ext.Viewport.down('homeview');
-				homeview.down('#mainNavigationTopbar').setHidden(false);
+				navToolbar.setHidden(false);
+				me.setNavigationToolbar();
 				homeview.setActiveItem('#idListMainFeed');
 			}
     },
-	
+	setNavigationToolbar: function(){
+		var homeview = Ext.Viewport.down('homeview'),
+			navToolbar = homeview.down('#mainNavigationTopbar'),
+			userStore = Ext.getStore('Profile'),
+			userRec = userStore.getAt(0);
+		if(Ext.os.is.Desktop){
+			navToolbar.down('#mainMenuNavigationBtn').setHidden(true);
+			var dataview = navToolbar.down('dataview'),
+				store = dataview.getStore();
+			dataview.setHidden(false);
+			if((userRec.get('status') == "player") || (userRec.get('status') == "judge") ){
+				data = [{title: 'Main Activity',index:0},
+				{title: 'Search User',index:1},
+				{title: 'Scorecard',index:2},
+				{title: 'Profile',index:3},
+				{title: 'Challenges',index:4},
+				{title: 'Mini Challenge',index:5}];
+			}
+			else{
+				data = [{title: 'Main Activity',index:0},
+				{title: 'Search User',index:1},
+				{title: 'Scorecard',index:2},
+				{title: 'Profile',index:3},
+				/* {title: 'Mini Challenge',index:5} */];
+			}
+			store.clearData();
+			store.add(data);
+		}
+		else{
+			navToolbar.down('#mainMenuNavigationBtn').setHidden(false);
+			navToolbar.down('dataview').setHidden(true);
+		}
+	},
 	getPlayerReq : function(token){
 
 		var me = this;
@@ -106,15 +141,20 @@ Ext.define('HungerApp.controller.Home', {
 				var userStore = Ext.getStore('Profile');
 				userStore.clearData();
 				userStore.add(loginData.user);
-				if(userStore.getAt(0).data.status=="md")
-				{
-					me.getPlayerReq(userStore.getAt(0).data.auth_token);
-					return;
-				}
+				var userRecord = userStore.getAt(0);
 				var homeview = Ext.Viewport.down('homeview');
 				var loginForm = homeview.down('#formPanelLogin');
+				var navToolbar = homeview.down('#mainNavigationTopbar'),
+					subNavBtn = navToolbar.down('#mainMenuSubNavigationBtn');
+				subNavBtn.setText(userRecord.get('name') + " " + userRecord.get('last_name'));
+				
+				if(userRecord.get('status') == "md"){
+					me.getPlayerReq(userRecord.get('auth_token'));
+					return;
+				}
 				loginForm.reset();
-				homeview.down('#mainNavigationTopbar').setHidden(false);
+				navToolbar.setHidden(false);
+				me.setNavigationToolbar();
 				homeview.animateActiveItem('#idListMainFeed',{type:'slide',direction: 'left'});
 			},
 			failure:function(res){

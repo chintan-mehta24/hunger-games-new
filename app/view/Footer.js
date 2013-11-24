@@ -13,7 +13,7 @@ Ext.define('HungerApp.view.Footer', {
 			xtype:'button',
 			ui: 'plain'
 		},
-		items:[{
+		items:[{xtype:'spacer'},{
 			itemId: 'btnFacebookShare',
 			icon: 'resources/images/facebook.png'
 		},{xtype:'spacer'},{
@@ -22,7 +22,7 @@ Ext.define('HungerApp.view.Footer', {
 		},{xtype:'spacer'},{
 			itemId: 'btnLinkedShare',
 			icon: 'resources/images/linked.png'
-		}],
+		},{xtype:'spacer'}],
 		listeners:[{
 			delegate: '#btnFacebookShare',
 			event: 'tap',

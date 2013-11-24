@@ -22,7 +22,7 @@ Ext.define('HungerApp.view.Main', {
 			}]
 		},{
 			xtype: 'img',
-			height: '3em',
+			cls: 'slhylogoCls',
 			src: 'resources/images/SLH Y LOGO.png',
 			docked: 'top'
 		},{

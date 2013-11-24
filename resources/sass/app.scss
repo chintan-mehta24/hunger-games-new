@@ -577,17 +577,17 @@ html,  body{
 		border-radius: 0;
 		border: 0;
 	}
-	.x-dataview {
-		.x-dataview-item{
-			font-size: 0.9em;
-			width: 33%;
-			line-height: 2.5;
-			padding-left: 0.75em;
-			color: #EE7223;
-			&.x-item-pressed{
-				background-color: #EE7223;
-				color: white;
-			}
+}
+.navigationDataviewCls.x-dataview {
+	.x-dataview-item{
+		font-size: 0.9em;
+		width: 33.33%;
+		line-height: 2.5;
+		padding-left: 0.75em;
+		color: #EE7223;
+		&.x-item-pressed{
+			background-color: #EE7223;
+			color: white;
 		}
 	}
 }
@@ -755,6 +755,25 @@ html,  body{
 				background-color: #EE7223;
 				color: white;
 			}
+		}
+	}
+}
+.x-img.slhylogoCls{
+	height: 3em;
+}
+.x-desktop {
+	.x-img.slhylogoCls{
+		height: 4.5em;
+	}
+	.navigationDataviewCls.x-dataview {
+		.x-dataview-container{
+			@include st-box();
+		}
+		.x-dataview-item{
+			@include st-box(important);
+			@include st-box-flex(1);
+			width: 0;
+			line-height: 2.25;
 		}
 	}
 }

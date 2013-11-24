@@ -12,7 +12,7 @@ Ext.define('HungerApp.view.Home', {
 		cls: 'blackBgFormPanelCls',
 		items:[
 			{
-				xtype: 'titlebar',
+				xtype: 'toolbar',
 				docked: 'top',
 				layout:{
 					align:'stretch',
@@ -26,10 +26,27 @@ Ext.define('HungerApp.view.Home', {
 					xtype: 'button',
 					icon: 'resources/images/menu.png',
 					ui: 'plain',
-					align: 'left',
+//					align: 'left',
 					cls: 'leftMainMenuBtn',
 					itemId: 'mainMenuNavigationBtn',
 					text: 'Main Menu'
+				},{
+					xtype: 'dataview',
+					scrollable: null,
+					itemTpl: '{title}',
+					flex: 1,
+					inline: { wrap: true},
+					itemId: 'mainNavigationDesktopBar',
+					cls: 'navigationDataviewCls',
+					store: {
+						fields: ['title','index'],
+						data: [	{title: 'Main Activity',index:0},
+								{title: 'Search User',index:1},
+								{title: 'Scorecard',index:2},
+								{title: 'Profile',index:3},
+								{title: 'Challenges',index:4},
+								{title: 'Mini Challenge',index:5}]
+					},
 				},{
 					xtype: 'button',
 					icon: 'resources/images/down_arrow.png',
@@ -37,10 +54,28 @@ Ext.define('HungerApp.view.Home', {
 					iconAlign: 'right',
 					cls: 'leftMainMenuBtn',
 					itemId: 'mainMenuSubNavigationBtn',
-					align: 'right',
+//					align: 'right',
 					text: 'Sub Nav'
 				}]
 			},
+/*			{
+				xtype: 'dataview',
+				scrollable: null,
+				itemTpl: '{title}',
+				inline: { wrap: true},
+				itemdId: 'mainNavigationDesktopBar',
+				cls: 'navigationDataviewCls',
+				docked: 'top',
+				store: {
+					fields: ['title','index'],
+					data: [	{title: 'Main Activity',index:0},
+							{title: 'Search User',index:1},
+							{title: 'Scorecard',index:2},
+							{title: 'Profile',index:3},
+							{title: 'Challenges',index:4},
+							{title: 'Mini Challenge',index:5}]
+				},
+			},*/
 			{
 				xtype: 'panel',
 				itemId: 'panelHomeLogin',
@@ -174,6 +209,10 @@ Ext.define('HungerApp.view.Home', {
 			delegate: '#mainMenuSubNavigationBtn',
 			event: 'tap',
 			fn: 'onMainSubNavButtonTap'
+		},{
+			delegate: '#mainNavigationDesktopBar',
+			event: 'itemtap',
+			fn: 'onItemTapDesktopNavBar'
 		}]
 	},
 	onButtonLogin: function(){
@@ -251,51 +290,7 @@ Ext.define('HungerApp.view.Home', {
 		}
 		me = this;
 		this.showPopupOverlay(btn,data,function(ths,index,target,record){
-			switch(record.get('index')){
-				case 0:	
-						me.animateActiveItem('#idListMainFeed',{type:'slide',direction:'left',duration:200});
-					break;
-				case 1:
-						var searchStore = Ext.getStore('SearchUser');
-						searchStore.clearData();
-						me.animateActiveItem('#idSearchUser',{type:'slide',direction:'left',duration:200});
-					break;
-				case 2:
-						var homeview = Ext.Viewport.down('homeview'),
-							userStore = Ext.getStore('Profile'),
-							record = userStore.getAt(0),
-							scoreBordeStore = Ext.getStore('ScoreBoard'),
-							scoreBoardProxy = scoreBordeStore.getProxy();
-						
-						homeview.animateActiveItem('#idScorecard',{type:'slide',direction:'left',duration:200});				
-						scoreBoardProxy.setExtraParam('auth_token',record.get('auth_token'));
-						scoreBordeStore.load();
-						Ext.Viewport.setMasked(false);
-						// var homeController=HungerApp.app.getController('Home');
-						// homeController.setScroeBoard(userStore.getAt(0).data.auth_token);
-					break;
-				case 3:
-						var userStore = Ext.getStore('Profile');
-						var homeController=HungerApp.app.getController('Home');
-						homeController.setProfilePageData(userStore.getAt(0).data.user_id,true);
-						//me.animateActiveItem('#formUserProfile',{type:'slide',direction:'left',duration:200});
-					break;
-				case 4:
-						var userStore = Ext.getStore('Profile'),
-							record = userStore.getAt(0),
-							status = record.get('status');
-						var userChallenge = Ext.getStore('UserChallenge');
-						userChallenge.getProxy().setUrl(applink+'api/challenges?user_id='+record.get('user_id'));
-						userChallenge.load();
-						if(status=="player")
-							me.animateActiveItem('#idUserChallenge',{type:'slide',direction:'left',duration:200});
-						else if(status=="judge")
-							me.animateActiveItem('#idJudgeChallenge',{type:'slide',direction:'left',duration:200});
-					break;
-				case 5: 
-					me.animateActiveItem('#idMiniChallenge',{type:'slide',direction:'left',duration:200});
-					break;
-			}
+				me.gotoPage(record.get('index'));
 		},this);
 	},
 	
@@ -311,6 +306,7 @@ Ext.define('HungerApp.view.Home', {
 			hideOnMaskTap: true,
 			items:[{
 				xtype: 'dataview',
+				cls: 'navigationDataviewCls',
 				scrollable: null,
 				inline: true,
 				itemTpl: '{title}',
@@ -326,5 +322,56 @@ Ext.define('HungerApp.view.Home', {
 		Ext.Viewport.add(overlay);
 		overlay.on('hide',function(){this.destroy();},overlay);
 		overlay.show();
+	},
+	onItemTapDesktopNavBar: function(ths,index,target,record){
+		this.gotoPage(record.get('index'));
+	},
+	gotoPage: function(index){
+		var me = this;
+		switch(index){
+			case 0:	
+					me.animateActiveItem('#idListMainFeed',{type:'slide',direction:'left',duration:200});
+				break;
+			case 1:
+					var searchStore = Ext.getStore('SearchUser');
+					searchStore.clearData();
+					me.animateActiveItem('#idSearchUser',{type:'slide',direction:'left',duration:200});
+				break;
+			case 2:
+					var homeview = Ext.Viewport.down('homeview'),
+						userStore = Ext.getStore('Profile'),
+						record = userStore.getAt(0),
+						scoreBordeStore = Ext.getStore('ScoreBoard'),
+						scoreBoardProxy = scoreBordeStore.getProxy();
+					
+					homeview.animateActiveItem('#idScorecard',{type:'slide',direction:'left',duration:200});				
+					scoreBoardProxy.setExtraParam('auth_token',record.get('auth_token'));
+					scoreBordeStore.load();
+					Ext.Viewport.setMasked(false);
+					// var homeController=HungerApp.app.getController('Home');
+					// homeController.setScroeBoard(userStore.getAt(0).data.auth_token);
+				break;
+			case 3:
+					var userStore = Ext.getStore('Profile');
+					var homeController=HungerApp.app.getController('Home');
+					homeController.setProfilePageData(userStore.getAt(0).data.user_id,true);
+					//me.animateActiveItem('#formUserProfile',{type:'slide',direction:'left',duration:200});
+				break;
+			case 4:
+					var userStore = Ext.getStore('Profile'),
+						record = userStore.getAt(0),
+						status = record.get('status');
+					var userChallenge = Ext.getStore('UserChallenge');
+					userChallenge.getProxy().setUrl(applink+'api/challenges?user_id='+record.get('user_id'));
+					userChallenge.load();
+					if(status=="player")
+						me.animateActiveItem('#idUserChallenge',{type:'slide',direction:'left',duration:200});
+					else if(status=="judge")
+						me.animateActiveItem('#idJudgeChallenge',{type:'slide',direction:'left',duration:200});
+				break;
+			case 5: 
+				me.animateActiveItem('#idMiniChallenge',{type:'slide',direction:'left',duration:200});
+				break;
+		}
 	}
 });

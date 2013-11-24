@@ -110,10 +110,14 @@ Ext.define('HungerApp.view.MainActivity', {
 			delegate: '#idBtnImagePost',
 			event: 'failure',		//onFail Image upload
 			fn: 'onFailUpload'
+		},{
+			delegate: '#idTxtPost',
+			event: 'action',
+			fn: 'doTextPost'
 		}]
 	},
 	onItemTapAction: function(ths,index,target,record,e){
- 		if(e.getTarget('.avatar')){
+ 		if(e.getTarget('.avatar') || e.getTarget('.title')){
 //			var homeview = Ext.Viewport.down('homeview');
 //			homeview.animateActiveItem('#formUserProfile',{type:'slide',direction: 'right'});
 			var user_id = record.get('user_id');
